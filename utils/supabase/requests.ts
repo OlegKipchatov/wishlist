@@ -133,8 +133,9 @@ export const getListItemByLogin = async (supabase: SupabaseClient, login: string
     return listItem;
 }
 
+// TODO: Refactroing work with types and requests
 export const setItem = async (supabase: SupabaseClient, item: WishItem): Promise<Boolean> => {
-    const newItem: WishItemRequest = {
+    const newItem: any = {
         title: item.title,
         cost: item.cost,
         link: item.link,
