@@ -13,12 +13,13 @@ type Props = {
 
 export default async function List(props: Props) {
   const { params: { login }} = props;
+  const currentUserLogin = decodeURIComponent(login);
   
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  const listItems = await getListItemByLogin(supabase, login);
+  const listItems = await getListItemByLogin(supabase, currentUserLogin);
 
-  const selectUserId = await getUserIdByLogin(supabase, login);
+  const selectUserId = await getUserIdByLogin(supabase, currentUserLogin);
   const currentUser = await getUserData(supabase);
   const isAuthUser = selectUserId === currentUser?.id;
 
@@ -32,9 +33,10 @@ export default async function List(props: Props) {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { params: { login }} = props;
+  const currentUserLogin = decodeURIComponent(login);
  
   return {
-    title: `WishList - ${login}`,
-    description: `Implement the wish of ${login} and gift only the necessary things.`,
+    title: `WishList - ${currentUserLogin}`,
+    description: `Implement the wish of ${currentUserLogin} and gift only the necessary things.`,
   }
 }
