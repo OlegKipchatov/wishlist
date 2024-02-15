@@ -1,5 +1,4 @@
 import { IItem } from "@/utils/supabase/requests";
-import { User } from "@supabase/supabase-js";
 import CardImage from "./CardImage";
 import CardCost from "./CardCost";
 import CardDate from "./CardDate";
@@ -7,7 +6,7 @@ import CardFooter from "./CardFooter";
 
 interface Props {
     item: IItem,
-    user: User,
+    isAuthUser: boolean,
 }
 
 const cardStyles = "flex flex-col sm:flex-row justify-between space-x-2 w-full border rounded-t-lg shadow h-auto sm:h-48";
@@ -15,8 +14,7 @@ const cardLightStyles = "bg-white border-gray-200 ";
 const cardDarkStyles = "dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 ";
 
 export default function Card(props: Props) {
-    const { item, user } = props;
-    const isAuthUser = user.id === item.user_id;
+    const { item, isAuthUser } = props;
     const date = new Date(item.time);
 
     return(

@@ -12,6 +12,25 @@ export const getUserData = async (supabase: SupabaseClient) => {
     return session?.user;
 }
 
+export const getUserIdByLogin = async (supabase: SupabaseClient, login: string) => {
+    try {
+        const { data, error } = await supabase
+            .from('profiles')
+            .select('id')
+            .eq('login', login);
+
+        if (error) {
+            console.error('Error fetching products:', error.message);
+            return;
+        }
+
+        const userId = data[0].id;
+        return userId;
+    } catch (e: any) {
+        console.error('Error fetching products:', e.message);
+    }
+}
+
 export const setUserMetadata = async (supabase: SupabaseClient, userMetada: UserMetadata) => {
     const user = await getUserData(supabase);
     const uuid = user?.id;
@@ -70,9 +89,8 @@ export const getUserMetadata = async (supabase: SupabaseClient) => {
     }
 }
 
-export const getListItem = async (supabase: SupabaseClient): Promise<IItem[] | undefined> => {
-    const user = await getUserData(supabase);
-    const uuid = user?.id;
+export const getListItem = async (supabase: SupabaseClient, id: string | undefined = undefined): Promise<IItem[] | undefined> => {
+    const uuid = id ?? (await getUserData(supabase))?.id;
 
     try {
         const { data, error } = await supabase
@@ -89,6 +107,13 @@ export const getListItem = async (supabase: SupabaseClient): Promise<IItem[] | u
     } catch (e: any) {
         console.error('Error fetching products:', e.message);
     }
+}
+
+export const getListItemByLogin = async (supabase: SupabaseClient, login: string) => {
+    const userId = await getUserIdByLogin(supabase, login);
+    const listItem = await getListItem(supabase, userId);
+
+    return listItem;
 }
 
 export const setItem = async (supabase: SupabaseClient, item: WishItem): Promise<Boolean> => {
