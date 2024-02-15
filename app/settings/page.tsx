@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { getUserData, getUserMetadata } from "@/utils/supabase/requests";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
@@ -20,4 +21,11 @@ export default async function Settings() {
             <SettingsForm userMetadata={userMetadata} />
         </div>
     );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+    return {
+        title: "WishList - Settings",
+        description: "Add more info to your profile.",
+    };
 }

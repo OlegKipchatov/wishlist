@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import AddCard from "@/components/AddCard";
 import ListItems from "@/components/ListItems";
 import { getListItemByLogin, getUserData, getUserIdByLogin } from "@/utils/supabase/requests";
@@ -29,4 +30,11 @@ export default async function List(props: Props) {
   );
 }
 
-
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { params: { login }} = props;
+ 
+  return {
+    title: `WishList - ${login}`,
+    description: `Implement the wish of ${login} and gift only the necessary things.`,
+  }
+}
