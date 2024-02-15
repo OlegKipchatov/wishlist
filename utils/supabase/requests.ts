@@ -12,6 +12,64 @@ export const getUserData = async (supabase: SupabaseClient) => {
     return session?.user;
 }
 
+export const setUserMetadata = async (supabase: SupabaseClient, userMetada: UserMetadata) => {
+    const user = await getUserData(supabase);
+    const uuid = user?.id;
+
+    try {
+        const { error } = await supabase
+            .from('profiles')
+            .insert({...userMetada, id: uuid});
+
+        if (error) {
+            console.error('Error fetching products:', error.message);
+            return;
+        }
+    } catch (e: any) {
+        console.error('Error fetching products:', e.message);
+    }
+}
+
+export const updateUserMetadata = async (supabase: SupabaseClient, userMetada: UserMetadata) => {
+    const user = await getUserData(supabase);
+    const uuid = user?.id;
+
+    try {
+        const { error } = await supabase
+            .from('profiles')
+            .update(userMetada)
+            .eq('id', uuid)
+
+        if (error) {
+            console.error('Error fetching products:', error.message);
+            return;
+        }
+    } catch (e: any) {
+        console.error('Error fetching products:', e.message);
+    }
+}
+
+export const getUserMetadata = async (supabase: SupabaseClient) => {
+    const user = await getUserData(supabase);
+    const uuid = user?.id;
+
+    try {
+        const { data, error } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', uuid);
+
+        if (error) {
+            console.error('Error fetching products:', error.message);
+            return;
+        }
+
+        return data[0] as UserMetadata;
+    } catch (e: any) {
+        console.error('Error fetching products:', e.message);
+    }
+}
+
 export const getListItem = async (supabase: SupabaseClient): Promise<IItem[] | undefined> => {
     const user = await getUserData(supabase);
     const uuid = user?.id;
@@ -107,3 +165,9 @@ export type WishItem = Omit<IItem, 'id' | 'image'> & {
 };
 
 type WishItemRequest = Omit<IItem, 'id'>;
+
+export interface UserMetadata {
+    login?: string,
+    first_name?: string,
+    last_name?: string,
+};

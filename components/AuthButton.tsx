@@ -1,7 +1,8 @@
-import { createClient } from "@/utils/supabase/server";
+'use client'
+
 import Link from "next/link";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
 
 type Props = {
   isAuth: boolean,
@@ -9,12 +10,9 @@ type Props = {
 
 export default async function AuthButton(props: Props) {
   const { isAuth } = props;
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createClient();
 
   const signOut = async () => {
-    "use server";
-
     await supabase.auth.signOut();
     return redirect("/login");
   };
