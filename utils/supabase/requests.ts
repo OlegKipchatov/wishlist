@@ -31,6 +31,23 @@ export const getUserIdByLogin = async (supabase: SupabaseClient, login: string) 
     }
 }
 
+export const getListUsers = async (supabase: SupabaseClient) => {
+    try {
+        const { data, error } = await supabase
+            .from('profiles')
+            .select('*');
+
+        if (error) {
+            console.error('Error fetching products:', error.message);
+            return;
+        }
+
+        return data as UserMetadata[];
+    } catch (e: any) {
+        console.error('Error fetching products:', e.message);
+    }
+}
+
 export const setUserMetadata = async (supabase: SupabaseClient, userMetada: UserMetadata) => {
     const user = await getUserData(supabase);
     const uuid = user?.id;
