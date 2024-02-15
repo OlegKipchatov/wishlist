@@ -42,7 +42,7 @@ export default function AddCardForm() {
         const item: any = {
             title: titleRef.current.value,
             cost: Number(costRef.current?.value),
-            link: costRef.current?.value,
+            link: linkRef.current?.value,
             time: new Date().toISOString(),
             image: imageFile,
         }
