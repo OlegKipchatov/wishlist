@@ -17,7 +17,7 @@ export default function SettingsForm(props: Props) {
     const supabase = createClient();
 
     const updateMetadata = async (form: FormData) => {
-        const newUserMetadata: UserMetadata = {
+        const newUserMetadata: Omit<UserMetadata, 'id'> = {
             login: form.get('login') as string,
             first_name: form.get('first_name') as string,
             last_name: form.get('last_name') as string,

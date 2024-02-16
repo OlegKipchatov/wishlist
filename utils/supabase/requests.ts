@@ -47,7 +47,7 @@ export const getListUsers = async (supabase: SupabaseClient) => {
     }
 }
 
-export const setUserMetadata = async (supabase: SupabaseClient, userMetada: UserMetadata) => {
+export const setUserMetadata = async (supabase: SupabaseClient, userMetada: Omit<UserMetadata, 'id'>) => {
     const user = await getUserData(supabase);
     const uuid = user?.id;
 
@@ -65,7 +65,7 @@ export const setUserMetadata = async (supabase: SupabaseClient, userMetada: User
     }
 }
 
-export const updateUserMetadata = async (supabase: SupabaseClient, userMetada: UserMetadata) => {
+export const updateUserMetadata = async (supabase: SupabaseClient, userMetada: Omit<UserMetadata, 'id'>) => {
     const user = await getUserData(supabase);
     const uuid = user?.id;
 
