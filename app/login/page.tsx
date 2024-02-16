@@ -22,6 +22,7 @@ export default function Login({
     });
 
     if (error) {
+      console.error(error.message);
       return redirect("/login?message=Could not authenticate user");
     }
 
@@ -34,6 +35,8 @@ export default function Login({
     const origin = headers().get("origin");
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+    const login = email.split('@')[0];
+
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
 
@@ -42,11 +45,15 @@ export default function Login({
       password,
       options: {
         emailRedirectTo: `${origin}/auth/callback`,
+        data: {
+          login,
+          email,
+        }
       },
     });
 
     if (error) {
-      console.log(error);
+      console.error(error.message);
       return redirect("/login?message=Could not authenticate user");
     }
 

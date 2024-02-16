@@ -1,16 +1,14 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { User } from "@supabase/supabase-js";
 import { createClient } from "@/supabase/server";
-import { UserMetadata, getUserData, getUserMetadata, isAuthUser } from "@/supabase/requests";
+import { supabaseWorker } from '@/supabase/requests';
 import AuthButton from "@/components/Header/AuthButton";
+import { IUser } from "@/supabase/types";
 
 export default async function Header() {
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-    const isAuth = await isAuthUser(supabase);
-    const user = await getUserData(supabase);
-    const userMetadata = await getUserMetadata(supabase);
+    const supabase = supabaseWorker(createClient(cookies()));
+    const isAuthenticated = await supabase.users.isAuthenticated();
+    const user = isAuthenticated && await supabase.users.getSessionUser();
 
     return(
         <nav className="w-full flex fixed backdrop-blur-xl justify-center border-b border-b-foreground/10 h-16 z-50">
@@ -18,8 +16,8 @@ export default async function Header() {
                 <Link href='/' className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                     <span>WishList</span>
                 </Link>
-                { isAuth 
-                    ? <AuthButton user={user as User} userMetadata={userMetadata as UserMetadata} />
+                { isAuthenticated 
+                    ? <AuthButton user={user as IUser} />
                     : <Link href="/login" className="ml-auto py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">Login</Link>
                 }
             </div>

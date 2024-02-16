@@ -1,8 +1,9 @@
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 import AddCard from "@/components/AddCard";
 import ListItems from "@/components/ListItems";
-import { getListItemByLogin, getUserData, getUserMetaByLogin } from "@/supabase/requests";
-import { createClient } from "@/supabase/server";
+import { createClient } from '@/supabase/server';
+import { supabaseWorker } from '@/supabase/requests';
 import { cookies } from "next/headers";
 import UserCard from "@/components/UserCard";
 
@@ -16,19 +17,22 @@ export default async function List(props: Props) {
   const { params: { login }} = props;
   const currentUserLogin = decodeURIComponent(login);
   
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
-  const listItems = await getListItemByLogin(supabase, currentUserLogin);
+  const supabase = supabaseWorker(createClient(cookies()));
+  const selectUser = await supabase.users.getUserByIdOrLogin({ login: currentUserLogin });
+  if(!selectUser) {
+    return redirect('/');
+  }
 
-  const selectUser = await getUserMetaByLogin(supabase, currentUserLogin);
-  const currentUser = await getUserData(supabase);
-  const isAuthUser = selectUser?.id === currentUser?.id;
+  const sessionUser = await supabase.users.getSessionUser();
+  const isCurrentUser = selectUser.id === sessionUser?.id;
+  
+  const listItems = await supabase.items.getListItemsById(selectUser.id);
 
   return (
     <div className="w-full max-w-2xl space-y-8 p-4 sm:p-8 pt-14 sm:pt-20">
       {selectUser && <UserCard userMeta={selectUser} />}
-      {isAuthUser && <AddCard />}
-      <ListItems items={listItems} isAuthUser={isAuthUser} />
+      {isCurrentUser && <AddCard />}
+      <ListItems items={listItems} isCurrentUser={isCurrentUser} />
     </div>
   );
 }

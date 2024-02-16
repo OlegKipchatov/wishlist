@@ -3,8 +3,9 @@ import AddCardImage from './AddCardImage';
 import Popup from "../Popup";
 import { useRef } from "react";
 import { popupSlice, showPopup } from "@/store/redux/slices/popup";
-import { setItem } from "@/supabase/requests";
 import { createClient } from "@/supabase/client";
+import { supabaseWorker } from "@/supabase/requests";
+import { Card } from "@/supabase/types";
 
 const parseBlobToImage = async (blobUrl: string, type: string): Promise<File> => {
     const blob = await fetch(blobUrl).then(r => r.blob());
@@ -24,7 +25,7 @@ export default function AddCardForm() {
     const show = useSelector(showPopup);
     const image = useSelector(selectImage);
 
-    const supabase = createClient();
+    const supabase = supabaseWorker(createClient());
 
     const addItem = async (e:  React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
@@ -34,12 +35,8 @@ export default function AddCardForm() {
             return;
         }
 
-        let imageFile: File | undefined = undefined;
-        if(image?.imageUrl) {
-            imageFile = await parseBlobToImage(image.imageUrl, image.imageType);
-        }
-        
-        const item: any = {
+        const imageFile = image && await parseBlobToImage(image.imageUrl, image.imageType);
+        const item: Card = {
             title: titleRef.current.value,
             cost: Number(costRef.current?.value),
             link: linkRef.current?.value,
@@ -47,7 +44,7 @@ export default function AddCardForm() {
             image: imageFile,
         }
 
-        const isSetItem = await setItem(supabase, item);
+        const isSetItem = await supabase.items.setItem(item);
         if(isSetItem) {
             formRef.current?.reset();
             dispatch(editCardSlice.actions.reset());

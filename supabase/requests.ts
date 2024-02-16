@@ -1,216 +1,139 @@
 import { SupabaseClient } from "@supabase/supabase-js";
+import { Card, ICard, IUser, UserMetadata } from "./types";
 
-export const isAuthUser = async (supabase: SupabaseClient) => {
-    const { data: { user } } = await supabase.auth.getUser();
-
-    return user != null;
-}
-
-export const getUserData = async (supabase: SupabaseClient) => {
-    const { data: { session } } = await supabase.auth.getSession()
-
-    return session?.user;
-}
-
-export const getUserMetaByLogin = async (supabase: SupabaseClient, login: string) => {
-    try {
-        const { data, error } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('login', login);
-
-        if (error) {
-            console.error('Error fetching products:', error.message);
-            return;
-        }
-
-        return data[0] as UserMetadata;
-    } catch (e: any) {
-        console.error('Error fetching products:', e.message);
-    }
-}
-
-export const getListUsers = async (supabase: SupabaseClient) => {
-    try {
-        const { data, error } = await supabase
-            .from('profiles')
-            .select('*');
-
-        if (error) {
-            console.error('Error fetching products:', error.message);
-            return;
-        }
-
-        return data as UserMetadata[];
-    } catch (e: any) {
-        console.error('Error fetching products:', e.message);
-    }
-}
-
-export const setUserMetadata = async (supabase: SupabaseClient, userMetada: Omit<UserMetadata, 'id'>) => {
-    const user = await getUserData(supabase);
-    const uuid = user?.id;
-
-    try {
-        const { error } = await supabase
-            .from('profiles')
-            .insert({...userMetada, id: uuid});
-
-        if (error) {
-            console.error('Error fetching products:', error.message);
-            return;
-        }
-    } catch (e: any) {
-        console.error('Error fetching products:', e.message);
-    }
-}
-
-export const updateUserMetadata = async (supabase: SupabaseClient, userMetada: Omit<UserMetadata, 'id'>) => {
-    const user = await getUserData(supabase);
-    const uuid = user?.id;
-
-    try {
-        const { error } = await supabase
-            .from('profiles')
-            .update(userMetada)
-            .eq('id', uuid)
-
-        if (error) {
-            console.error('Error fetching products:', error.message);
-            return;
-        }
-    } catch (e: any) {
-        console.error('Error fetching products:', e.message);
-    }
-}
-
-export const getUserMetadata = async (supabase: SupabaseClient) => {
-    const user = await getUserData(supabase);
-    const uuid = user?.id;
-
-    try {
-        const { data, error } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', uuid);
-
-        if (error) {
-            console.error('Error fetching products:', error.message);
-            return;
-        }
-
-        return data[0] as UserMetadata;
-    } catch (e: any) {
-        console.error('Error fetching products:', e.message);
-    }
-}
-
-export const getListItem = async (supabase: SupabaseClient, id: string | undefined = undefined): Promise<IItem[] | undefined> => {
-    const uuid = id ?? (await getUserData(supabase))?.id;
-
-    try {
-        const { data, error } = await supabase
-            .from('wish_list')
-            .select('*')
-            .eq('user_id', uuid);
-
-        if (error) {
-            console.error('Error fetching products:', error.message);
-            return;
-        }
-
-        return data;
-    } catch (e: any) {
-        console.error('Error fetching products:', e.message);
-    }
-}
-
-export const getListItemByLogin = async (supabase: SupabaseClient, login: string) => {
-    const userId = (await getUserMetaByLogin(supabase, login))?.id;
-    const listItem = await getListItem(supabase, userId);
-
-    return listItem;
-}
-
-// TODO: Refactroing work with types and requests
-export const setItem = async (supabase: SupabaseClient, item: WishItem): Promise<Boolean> => {
-    const newItem: any = {
-        title: item.title,
-        cost: item.cost,
-        link: item.link,
-        time: item.time,
-        image: item.image?.name
-    };
-
-    try {
-        if(item.image) {
-            const { data: imgData, error: errorImage } = await supabase.storage
-                .from('images')
-                .upload(item.image.name, item.image);
-
-            if (errorImage) {
-                console.error('Error upload image:', errorImage.message);
-                return false;
-            }
-
-            console.log(imgData.path);
-        }
-
-        const { error } = await supabase
-            .from('wish_list')
-            .insert(newItem);
-
-        if (error) {
-            console.error('Error set products:', error.message);
-            return false;
-        }
-
-        return true;
-    } catch (e: any) {
-        console.error('Error set products:', e.message);
-        return false;
-    }
-}
-
-export const removeItem = async (supabase: SupabaseClient, uuid: string): Promise<boolean> => {
-    try {
-        const { error } = await supabase
-            .from('wish_list')
-            .delete()
-            .eq('id', uuid);
-
-        if (error) {
-            console.error('Error remove products:', error.message);
-            return false;
-        }
-
-        return true;
-    } catch (e: any) {
-        console.error('Error remove products:', e.message);
-        return false;
-    }
-    
-}
-
-export interface IItem {
-    id: string,
-    user_id: string,
-    title: string,
-    cost: number | undefined,
-    link: string | undefined,
-    time: string,
-    image: string | undefined,
-}
-
-export type WishItem = Omit<IItem, 'id' | 'image'> & {
-    image: File | undefined,
-};
-
-type WishItemRequest = Omit<IItem, 'id'>;
-
-export interface UserMetadata {
-    id: string,
+type GetUserMetadataProps = {
+    id?: string,
     login?: string,
-    first_name?: string,
-    last_name?: string,
-};
+}
+
+export const supabaseWorker = (client: SupabaseClient) => {
+    return {
+        users: {
+            getSessionUser: async function () {
+                const { data: { session } } = await client.auth.getSession();
+                if(!session?.user) {
+                  return;
+                }
+
+                const user = {
+                    id: session.user.id,
+                    email: session.user.email,
+                    ...session.user.user_metadata
+                } as IUser;
+                return user;
+            },
+            isAuthenticated: async function () {
+                const { data: { user } } = await client.auth.getUser()
+                return !!user;
+            },
+            getListUsers: async function() {
+                try {
+                    const { data, error } = await client.from('profiles').select('*');
+            
+                    if (error) {
+                        console.error('Error fetching products:', error.message);
+                        return;
+                    }
+                    return data as UserMetadata[];
+                } catch (e: any) {
+                    console.error('Error fetching products:', e.message);
+                }
+            },
+            getUserByIdOrLogin: async function({ id, login }: GetUserMetadataProps) {
+              const eqObj = id ? { column: 'id', value: id } : { column: 'login', value: login };
+
+              try {
+                const { data, error } = await client.from('profiles').select('*').eq(eqObj.column, eqObj.value);
+                
+                if(error) {
+                  console.error('Error fetching user metadata:', error.message);
+                  return;
+                }
+
+                return data[0] as IUser;
+              } catch (e: any) {
+                console.error('Error fetching user metadata:', e.message);
+              }
+            },
+            updateUserMetadata: async function (userMetadata: UserMetadata) {
+                try {
+                    const { error } = await client.auth.updateUser({
+                        data: userMetadata,
+                    });
+                    
+                    if (error) {
+                        console.error('Error update user metadata for auth.user', error.message);
+                        return;
+                    }
+                } catch (e: any) {
+                    console.error('Error update user metadata', e.message);
+                }
+            },
+        },
+        items: {
+            setItem: async function(item: Card) {
+                const newItem: any = {
+                    title: item.title,
+                    cost: item.cost,
+                    link: item.link,
+                    time: item.time,
+                    image: item.image?.name
+                };
+            
+                try {
+                    if(item.image) {
+                        const { error: errorImage } = await client.storage
+                            .from('images')
+                            .upload(item.image.name, item.image);
+            
+                        if (errorImage) {
+                            console.error('Error upload image:', errorImage.message);
+                            return false;
+                        }
+                    }
+            
+                    const { error } = await client.from('wish_list').insert({...item, image: item.image?.name});
+            
+                    if (error) {
+                        console.error('Error set product:', error.message);
+                        return false;
+                    }
+            
+                    return true;
+                } catch (e: any) {
+                    console.error('Error set product:', e.message);
+                    return false;
+                }
+            },
+            removeItem: async function(cardId: string) {
+                try {
+                    const { error } = await client.from('wish_list').delete().eq('id', cardId);
+            
+                    if (error) {
+                        console.error('Error remove product:', error.message);
+                        return false;
+                    }
+            
+                    return true;
+                } catch (e: any) {
+                    console.error('Error remove product:', e.message);
+                    return false;
+                }
+            },
+            getListItemsById: async function(id: string) {
+                try {
+                    const { data, error } = await client.from('wish_list').select('*').eq('user_id', id);
+
+                    if (error) {
+                        console.error('Error fetching products:', error.message);
+                        return;
+                    }
+
+                    return data as ICard[];
+                } catch (e: any) {
+                    console.error('Error fetching products:', e.message);
+                }
+            }
+        }
+    }
+}

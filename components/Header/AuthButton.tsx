@@ -3,30 +3,20 @@
 import { useEffect, useRef, useState } from "react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { User } from "@supabase/supabase-js";
 import { createClient } from "@/supabase/client";
-import { UserMetadata } from "@/supabase/requests";
+import { IUser } from "@/supabase/types";
+import { getDisplayName } from "@/utils/users";
 
 type Props = {
-  user: User,
-  userMetadata?: UserMetadata,
-}
-
-const getDisplayName = (user: User, userMetadata?: UserMetadata) => {
-  if(userMetadata && userMetadata.first_name) {
-    return `${userMetadata.first_name} ${userMetadata.last_name}`;
-  }
-
-  return user.email;
+  user: IUser
 }
 
 export default function AuthButton(props: Props) {
-  const { user, userMetadata } = props;
+  const { user } = props;
   const [show, setShow] = useState(false);
   const currentNodeRef = useRef<HTMLDivElement>(null);
 
-  const displayName = getDisplayName(user, userMetadata);
-  const listHref = `/list/${userMetadata?.login}`;
+  const displayName = getDisplayName(user);
 
   const signOut = async () => {
     const supabase = createClient();
@@ -59,7 +49,7 @@ export default function AuthButton(props: Props) {
       { show && <div onClick={() => setShow(false)} className="absolute top-12 right-3 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-36 dark:bg-gray-700">
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="states-button">
               <li>
-                  <Link href={listHref} className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
+                  <Link href={`/list/${user.login}`} className="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
                       <div className="inline-flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 me-2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />

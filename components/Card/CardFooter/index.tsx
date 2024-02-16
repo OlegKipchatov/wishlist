@@ -3,14 +3,15 @@ import CardFooterReserve from "./CardFooterReserve";
 
 type Props = {
     id: string,
-    isAuthUser: boolean,
+    isCurrentUser: boolean,
 }
 
 export default function CardFooter(props: Props) {
-    const { id, isAuthUser } = props;
+    const { id, isCurrentUser } = props;
+
     return(
         <>
-            { isAuthUser ? <CardFooterAuth id={id} /> : <CardFooterReserve /> }
+            { isCurrentUser ? <CardFooterAuth id={id} /> : <CardFooterReserve /> }
         </>
     );
 }
