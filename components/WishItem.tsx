@@ -29,7 +29,7 @@ export default function WishItem(props: Props) {
         <div id={item.id}>
             <Card item={item} isCurrentUser={isCurrentUser} />
             {isEdit
-                ? <EditCard item={item} onEditCardEvent={onEditCardEvent} />
+                ? <EditCard onEditCardEvent={onEditCardEvent} />
                 : <></>}
         </div>
     );

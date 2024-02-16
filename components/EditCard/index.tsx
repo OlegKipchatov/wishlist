@@ -1,8 +1,6 @@
-import { IItem } from "@/supabase/requests";
 import { OnEditCardEvent } from "../WishItem";
 
 type Props = {
-    item: IItem,
     onEditCardEvent: (fn: OnEditCardEvent) => void,
 };
 
