@@ -12,11 +12,11 @@ export const getUserData = async (supabase: SupabaseClient) => {
     return session?.user;
 }
 
-export const getUserIdByLogin = async (supabase: SupabaseClient, login: string) => {
+export const getUserMetaByLogin = async (supabase: SupabaseClient, login: string) => {
     try {
         const { data, error } = await supabase
             .from('profiles')
-            .select('id')
+            .select('*')
             .eq('login', login);
 
         if (error) {
@@ -24,8 +24,7 @@ export const getUserIdByLogin = async (supabase: SupabaseClient, login: string) 
             return;
         }
 
-        const userId = data[0].id;
-        return userId;
+        return data[0] as UserMetadata;
     } catch (e: any) {
         console.error('Error fetching products:', e.message);
     }
@@ -48,7 +47,7 @@ export const getListUsers = async (supabase: SupabaseClient) => {
     }
 }
 
-export const setUserMetadata = async (supabase: SupabaseClient, userMetada: UserMetadata) => {
+export const setUserMetadata = async (supabase: SupabaseClient, userMetada: Omit<UserMetadata, 'id'>) => {
     const user = await getUserData(supabase);
     const uuid = user?.id;
 
@@ -66,7 +65,7 @@ export const setUserMetadata = async (supabase: SupabaseClient, userMetada: User
     }
 }
 
-export const updateUserMetadata = async (supabase: SupabaseClient, userMetada: UserMetadata) => {
+export const updateUserMetadata = async (supabase: SupabaseClient, userMetada: Omit<UserMetadata, 'id'>) => {
     const user = await getUserData(supabase);
     const uuid = user?.id;
 
@@ -127,7 +126,7 @@ export const getListItem = async (supabase: SupabaseClient, id: string | undefin
 }
 
 export const getListItemByLogin = async (supabase: SupabaseClient, login: string) => {
-    const userId = await getUserIdByLogin(supabase, login);
+    const userId = (await getUserMetaByLogin(supabase, login))?.id;
     const listItem = await getListItem(supabase, userId);
 
     return listItem;
@@ -210,6 +209,7 @@ export type WishItem = Omit<IItem, 'id' | 'image'> & {
 type WishItemRequest = Omit<IItem, 'id'>;
 
 export interface UserMetadata {
+    id: string,
     login?: string,
     first_name?: string,
     last_name?: string,
