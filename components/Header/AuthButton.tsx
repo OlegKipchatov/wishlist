@@ -17,7 +17,7 @@ const getDisplayName = (user: User, userMetadata?: UserMetadata) => {
     return `${userMetadata.first_name} ${userMetadata.last_name}`;
   }
 
-  return user.email;
+  return user?.email;
 }
 
 export default function AuthButton(props: Props) {
