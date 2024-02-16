@@ -1,18 +1,12 @@
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
-import { getListUsers, isAuthUser } from "@/utils/supabase/requests";
+import { getListUsers } from "@/utils/supabase/requests";
 import Avatar from "@/components/Avatar";
 
 export default async function Index() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  const isAuth = await isAuthUser(supabase);
-
-  if(!isAuth) {
-      return redirect("/login");
-  }
 
   const listUsers = await getListUsers(supabase);
 
