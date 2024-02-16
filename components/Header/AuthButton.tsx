@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { User } from "@supabase/supabase-js";
-import { createClient } from "@/utils/supabase/client";
-import { UserMetadata } from "@/utils/supabase/requests";
+import { createClient } from "@/supabase/client";
+import { UserMetadata } from "@/supabase/requests";
 
 type Props = {
   user: User,

@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import AddCard from "@/components/AddCard";
 import ListItems from "@/components/ListItems";
-import { getListItemByLogin, getUserData, getUserMetaByLogin } from "@/utils/supabase/requests";
-import { createClient } from "@/utils/supabase/server";
+import { getListItemByLogin, getUserData, getUserMetaByLogin } from "@/supabase/requests";
+import { createClient } from "@/supabase/server";
 import { cookies } from "next/headers";
 import UserCard from "@/components/UserCard";
 

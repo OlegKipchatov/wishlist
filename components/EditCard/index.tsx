@@ -1,4 +1,4 @@
-import { IItem } from "@/utils/supabase/requests";
+import { IItem } from "@/supabase/requests";
 import { OnEditCardEvent } from "../WishItem";
 
 type Props = {

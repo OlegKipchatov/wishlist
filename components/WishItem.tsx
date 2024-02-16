@@ -1,6 +1,6 @@
 'use client'
 
-import { IItem } from "@/utils/supabase/requests";
+import { IItem } from "@/supabase/requests";
 import Card from "./Card";
 import { useState } from "react";
 import EditCard from "./EditCard";

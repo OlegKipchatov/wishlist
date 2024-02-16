@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { User } from "@supabase/supabase-js";
-import { createClient } from "@/utils/supabase/server";
-import { UserMetadata, getUserData, getUserMetadata, isAuthUser } from "@/utils/supabase/requests";
+import { createClient } from "@/supabase/server";
+import { UserMetadata, getUserData, getUserMetadata, isAuthUser } from "@/supabase/requests";
 import AuthButton from "@/components/Header/AuthButton";
 
 export default async function Header() {

@@ -1,8 +1,8 @@
 'use client'
 
 import { useRef } from "react";
-import { createClient } from "@/utils/supabase/client";
-import { setUserMetadata, updateUserMetadata, UserMetadata } from "@/utils/supabase/requests";
+import { createClient } from "@/supabase/client";
+import { setUserMetadata, updateUserMetadata, UserMetadata } from "@/supabase/requests";
 import Button from '@/components/Button';
 
 type Props = {

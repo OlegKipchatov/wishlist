@@ -3,8 +3,8 @@ import AddCardImage from './AddCardImage';
 import Popup from "../Popup";
 import { useRef } from "react";
 import { popupSlice, showPopup } from "@/store/redux/slices/popup";
-import { setItem } from "@/utils/supabase/requests";
-import { createClient } from "@/utils/supabase/client";
+import { setItem } from "@/supabase/requests";
+import { createClient } from "@/supabase/client";
 
 const parseBlobToImage = async (blobUrl: string, type: string): Promise<File> => {
     const blob = await fetch(blobUrl).then(r => r.blob());

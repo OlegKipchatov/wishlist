@@ -1,7 +1,7 @@
 'use client';
 
-import { createClient } from "@/utils/supabase/client";
-import { removeItem } from "@/utils/supabase/requests";
+import { createClient } from "@/supabase/client";
+import { removeItem } from "@/supabase/requests";
 
 type Props = {
     id: string,

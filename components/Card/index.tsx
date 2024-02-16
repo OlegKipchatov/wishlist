@@ -1,4 +1,4 @@
-import { IItem } from "@/utils/supabase/requests";
+import { IItem } from "@/supabase/requests";
 import CardImage from "./CardImage";
 import CardCost from "./CardCost";
 import CardDate from "./CardDate";

@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
-import { createClient } from "@/utils/supabase/server";
-import { getListUsers } from "@/utils/supabase/requests";
+import { createClient } from "@/supabase/server";
+import { getListUsers } from "@/supabase/requests";
 import Avatar from "@/components/Avatar";
 
 export default async function Index() {

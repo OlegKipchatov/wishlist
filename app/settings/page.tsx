@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { getUserData, getUserMetadata } from "@/utils/supabase/requests";
-import { createClient } from "@/utils/supabase/server";
+import { getUserData, getUserMetadata } from "@/supabase/requests";
+import { createClient } from "@/supabase/server";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import SettingsForm from "@/components/SettingsForm";

@@ -1,4 +1,4 @@
-import { UserMetadata } from "@/utils/supabase/requests";
+import { UserMetadata } from "@/supabase/requests";
 import Avatar from "./Avatar";
 
 type Props = {
