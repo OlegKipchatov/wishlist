@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 import { getListUsers, isAuthUser } from "@/utils/supabase/requests";
-import CardAvatar from "@/components/CardAvatar";
+import Avatar from "@/components/Avatar";
 
 export default async function Index() {
   const cookieStore = cookies();
@@ -25,7 +25,7 @@ export default async function Index() {
             return(
               <li key={user.login}>
                 <Link href={linkToUserList} className="py-2 px-3 flex items-center gap-2 text-xl rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
-                  <CardAvatar name={displayName} />
+                  <Avatar name={displayName} />
                   {displayName}
                 </Link>
               </li>
