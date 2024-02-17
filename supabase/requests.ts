@@ -18,7 +18,7 @@ export const supabaseWorker = (client: SupabaseClient) => {
                 const user = {
                     id: session.user.id,
                     email: session.user.email,
-                    ...session.user.user_metadata
+                    ...session.user.user_metadata,
                 } as IUser;
                 return user;
             },
@@ -31,12 +31,12 @@ export const supabaseWorker = (client: SupabaseClient) => {
                     const { data, error } = await client.from('profiles').select('*');
             
                     if (error) {
-                        console.error('Error fetching products:', error.message);
+                        console.error('Error fetching list users:', error.message);
                         return;
                     }
                     return data as UserMetadata[];
                 } catch (e: any) {
-                    console.error('Error fetching products:', e.message);
+                    console.error('Error fetching list users:', e.message);
                 }
             },
             getUserByIdOrLogin: async function({ id, login }: GetUserMetadataProps) {
