@@ -57,7 +57,7 @@ export default function AddCardForm() {
     }
 
     return(
-        <Popup show={show} title="Add item">
+        <Popup show={show} setShow={() => dispatch(popupSlice.actions.showPopup(false))} title="Add item">
             <form ref={formRef}>
                 <AddCardImage />
 
