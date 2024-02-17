@@ -14,10 +14,7 @@ export default function CardFooterAuth(props: Props) {
 
     const onRremoveItem = async (e: React.MouseEvent<HTMLElement>) => {
         const supabase = supabaseWorker(createClient());
-        const isDeleted = await supabase.items.removeItem(id);
-        if(isDeleted) {
-            document.getElementById(id)?.remove();
-        }
+        await supabase.items.removeItem(id);
     }
 
     return(

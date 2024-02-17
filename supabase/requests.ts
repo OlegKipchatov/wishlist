@@ -133,7 +133,8 @@ export const supabaseWorker = (client: SupabaseClient) => {
                 } catch (e: any) {
                     console.error('Error fetching products:', e.message);
                 }
-            }
-        }
+            },
+        },
+        client,
     }
 }

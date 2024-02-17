@@ -6,6 +6,7 @@ import { createClient } from '@/supabase/server';
 import { supabaseWorker } from '@/supabase/requests';
 import { cookies } from "next/headers";
 import UserCard from "@/components/UserCard";
+import { ICard } from "@/supabase/types";
 
 type Props = {
   params: {
@@ -26,13 +27,13 @@ export default async function List(props: Props) {
   const sessionUser = await supabase.users.getSessionUser();
   const isCurrentUser = selectUser.id === sessionUser?.id;
   
-  const listItems = await supabase.items.getListItemsById(selectUser.id);
+  const listItems = (await supabase.items.getListItemsById(selectUser.id)) ?? [];
 
   return (
     <div className="w-full max-w-2xl space-y-8 p-4 sm:p-8 pt-14 sm:pt-20">
       {selectUser && <UserCard userMeta={selectUser} />}
       {isCurrentUser && <AddCard />}
-      <ListItems items={listItems} isCurrentUser={isCurrentUser} />
+      <ListItems id={selectUser.id} items={listItems} isCurrentUser={isCurrentUser} />
     </div>
   );
 }
