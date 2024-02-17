@@ -1,11 +1,11 @@
+import { useState } from "react";
 import { selectImage, useSelector, useDispatch, editCardSlice } from "@/store/redux";
-import AddCardImage from './AddCardImage';
-import Popup from "../Popup";
-import { useRef } from "react";
 import { popupSlice, showPopup } from "@/store/redux/slices/popup";
 import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
 import { Card } from "@/supabase/types";
+import AddCardImage from './AddCardImage';
+import Popup from "../Popup";
 
 const parseBlobToImage = async (blobUrl: string, type: string): Promise<File> => {
     const blob = await fetch(blobUrl).then(r => r.blob());
@@ -16,39 +16,32 @@ const parseBlobToImage = async (blobUrl: string, type: string): Promise<File> =>
 }
 
 export default function AddCardForm() {
-    const formRef = useRef<HTMLFormElement>(null);
-    const titleRef = useRef<HTMLInputElement>(null);
-    const costRef = useRef<HTMLInputElement>(null);
-    const linkRef = useRef<HTMLInputElement>(null);
-
     const dispatch = useDispatch();
-    const show = useSelector(showPopup);
     const image = useSelector(selectImage);
+    
+    const popupShow = useSelector(showPopup);
+    const [show, setShow] = useState(popupShow);
 
-    const supabase = supabaseWorker(createClient());
-
-    const addItem = async (e:  React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
-
-        if(!titleRef.current?.value) {
-            console.log('empty title');
+    const addItem = async (formData: FormData) => {
+        const title = formData.get('title') as string;
+        if(!title) {
             return;
         }
 
         const imageFile = image && await parseBlobToImage(image.imageUrl, image.imageType);
         const item: Card = {
-            title: titleRef.current.value,
-            cost: Number(costRef.current?.value),
-            link: linkRef.current?.value,
+            title: title,
+            cost: Number(formData.get('cost')),
+            link: formData.get('link') as string,
             time: new Date().toISOString(),
             image: imageFile,
         }
 
+        const supabase = supabaseWorker(createClient());
         const isSetItem = await supabase.items.setItem(item);
         if(isSetItem) {
-            formRef.current?.reset();
             dispatch(editCardSlice.actions.reset());
-            dispatch(popupSlice.actions.showPopup(false));
+            onClosePopup();
 
             if(image?.imageUrl) {
                 URL.revokeObjectURL(image.imageUrl);
@@ -56,14 +49,21 @@ export default function AddCardForm() {
         }
     }
 
+    const onClosePopup = () => {
+        setShow(false);
+        setTimeout(() => {
+            dispatch(popupSlice.actions.showPopup(false));
+        })
+    }
+
     return(
-        <Popup show={show} setShow={() => dispatch(popupSlice.actions.showPopup(false))} title="Add item">
-            <form ref={formRef}>
+        <Popup show={show} setShow={onClosePopup} title="Add item">
+            <form action={addItem}>
                 <AddCardImage />
 
                 <div className="grid md:grid-cols-2 md:gap-6">
                     <div className="mb-5">
-                        <input required ref={titleRef}
+                        <input required name='title'
                             type="text"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Product name"
@@ -71,8 +71,8 @@ export default function AddCardForm() {
                     </div>
 
                     <div className="mb-5">
-                        <input
-                            type="number" ref={costRef}
+                        <input name='cost'
+                            type="number"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Product cost"
                         />
@@ -80,7 +80,7 @@ export default function AddCardForm() {
                 </div>
 
                 <div className="mb-5">
-                    <input ref={linkRef}
+                    <input name='link'
                         type="text"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Product link"
@@ -89,7 +89,7 @@ export default function AddCardForm() {
                 
                 <button type="submit"
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    onClick={(e) => addItem(e)}>
+                    formAction={addItem}>
                         Add item
                 </button>
             </form>
