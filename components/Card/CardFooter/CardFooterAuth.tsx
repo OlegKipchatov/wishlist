@@ -1,7 +1,7 @@
 'use client';
 
-import { createClient } from "@/utils/supabase/client";
-import { removeItem } from "@/utils/supabase/requests";
+import { createClient } from "@/supabase/client";
+import { supabaseWorker } from "@/supabase/requests";
 
 type Props = {
     id: string,
@@ -11,13 +11,10 @@ const iconStyles = "inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-
 
 export default function CardFooterAuth(props: Props) {
     const { id } = props;
-    const supabase = createClient();
 
     const onRremoveItem = async (e: React.MouseEvent<HTMLElement>) => {
-        const isDeleted = await removeItem(supabase, id);
-        if(isDeleted) {
-            document.getElementById(id)?.remove();
-        }
+        const supabase = supabaseWorker(createClient());
+        await supabase.items.removeItem(id);
     }
 
     return(

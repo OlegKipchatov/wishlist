@@ -3,17 +3,9 @@ type Props = {
     size?: 'medium' | 'large',
 }
 
-const getInitials = (name: string) => {
-    const firstInitial = name.split(' ')[0][0].toLocaleUpperCase();
-    const secondInitial = name.split(' ')[1][0].toLocaleUpperCase();
-    const fullInitial = firstInitial + secondInitial;
-
-    return fullInitial;
-}
-
 export default function Avatar(props: Props) {
     const { name, size = 'medium' } = props;
-    const initials = getInitials(name);
+    const initials = name.split(' ').map(word => word[0].toLocaleUpperCase()).join('');
 
     return size === 'medium' ? (
         <div className='w-12 h-12'>
