@@ -1,20 +1,27 @@
 'use client';
 
+import { useState } from "react";
+import Popup from "@/components/Popup";
 import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
 
 type Props = {
     id: string,
+    title: string,
 }
 
 const iconStyles = "inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2";
 
 export default function CardFooterAuth(props: Props) {
-    const { id } = props;
+    const { id, title } = props;
+    const [show, setShow] = useState(false);
 
     const onRremoveItem = async (e: React.MouseEvent<HTMLElement>) => {
         const supabase = supabaseWorker(createClient());
-        await supabase.items.removeItem(id);
+        const isRemove = await supabase.items.removeItem(id);
+        if(isRemove) {
+            setShow(false);
+        }
     }
 
     return(
@@ -25,11 +32,15 @@ export default function CardFooterAuth(props: Props) {
                         <svg className="flex-shrink-0 w-4 h-4" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />  <line x1="16" y1="5" x2="19" y2="8" /></svg>
                     </button>
 
-                    <button type="button" className={iconStyles} onClick={onRremoveItem}>
+                    <button type="button" className={iconStyles} onClick={() => setShow(true)}>
                         <svg className="flex-shrink-0 w-4 h-4" viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round">  <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />  <line x1="18" y1="9" x2="12" y2="15" />  <line x1="12" y1="9" x2="18" y2="15" /></svg>
                     </button>
                 </div>
             </div>
+
+            <Popup show={show} setShow={() => setShow(false)} title={`Remove '${title}'?`}>
+                <button className="w-full py-2.5 px-3 bg-red-600 hover:bg-red-700 active:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-400 text-white rounded-lg" onClick={onRremoveItem}>Remove item</button>
+            </Popup>
         </>
     );
 }

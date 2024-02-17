@@ -25,7 +25,7 @@ export default function Card(props: Props) {
                 <div className="flex flex-col justify-between p-4 space-y-4 w-full">
                     <div className="flex flex-col space-y-2">
                         <span className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            {item.title ?? 'Non title'}
+                            {item.title}
                         </span>
 
                         <CardCost cost={item.cost}/>
@@ -37,7 +37,7 @@ export default function Card(props: Props) {
                 </div>
             </a>
 
-            <CardFooter id={item.id} isCurrentUser={isCurrentUser} />
+            <CardFooter id={item.id} title={item.title} isCurrentUser={isCurrentUser} />
         </div>
     );
 }
