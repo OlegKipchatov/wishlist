@@ -1,11 +1,14 @@
-import { useState } from "react";
 import { selectImage, useSelector, useDispatch, editCardSlice } from "@/store/redux";
-import { popupSlice, showPopup } from "@/store/redux/slices/popup";
 import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
 import { Card } from "@/supabase/types";
 import AddCardImage from './AddCardImage';
 import Popup from "../Popup";
+
+type Props = {
+    show: boolean,
+    onClose: () => void,
+}
 
 const parseBlobToImage = async (blobUrl: string, type: string): Promise<File> => {
     const blob = await fetch(blobUrl).then(r => r.blob());
@@ -15,22 +18,15 @@ const parseBlobToImage = async (blobUrl: string, type: string): Promise<File> =>
     return image;
 }
 
-export default function AddCardForm() {
+export default function AddCardForm(props: Props) {
+    const { show, onClose } = props;
     const dispatch = useDispatch();
     const image = useSelector(selectImage);
-    
-    const popupShow = useSelector(showPopup);
-    const [show, setShow] = useState(popupShow);
 
     const addItem = async (formData: FormData) => {
-        const title = formData.get('title') as string;
-        if(!title) {
-            return;
-        }
-
         const imageFile = image && await parseBlobToImage(image.imageUrl, image.imageType);
         const item: Card = {
-            title: title,
+            title: formData.get('title') as string,
             cost: Number(formData.get('cost')),
             link: formData.get('link') as string,
             time: new Date().toISOString(),
@@ -41,23 +37,16 @@ export default function AddCardForm() {
         const isSetItem = await supabase.items.setItem(item);
         if(isSetItem) {
             dispatch(editCardSlice.actions.reset());
-            onClosePopup();
-
             if(image?.imageUrl) {
                 URL.revokeObjectURL(image.imageUrl);
             }
+
+            onClose();
         }
     }
 
-    const onClosePopup = () => {
-        setShow(false);
-        setTimeout(() => {
-            dispatch(popupSlice.actions.showPopup(false));
-        })
-    }
-
     return(
-        <Popup show={show} setShow={onClosePopup} title="Add item">
+        <Popup show={show} onClose={onClose} title="Add item">
             <form action={addItem}>
                 <AddCardImage />
 
