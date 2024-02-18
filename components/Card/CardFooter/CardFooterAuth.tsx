@@ -38,7 +38,7 @@ export default function CardFooterAuth(props: Props) {
                 </div>
             </div>
 
-            <Popup show={show} setShow={() => setShow(false)} title={`Remove '${title}'?`}>
+            <Popup show={show} onClose={() => setShow(false)} title={`Remove '${title}'?`}>
                 <button className="w-full py-2.5 px-3 bg-red-600 hover:bg-red-700 active:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-400 text-white rounded-lg" onClick={onRremoveItem}>Remove item</button>
             </Popup>
         </>
