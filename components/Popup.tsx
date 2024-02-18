@@ -34,13 +34,13 @@ export default function Popup(props: Props) {
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
-                            enterFrom="translate-y-full sm:opacity-0 sm:scale-95"
+                            enterFrom="translate-y-full sm:translate-y-0 sm:opacity-0 sm:scale-75"
                             enterTo="translate-y-0 sm:opacity-100 sm:scale-100"
                             leave="ease-in duration-200"
                             leaveFrom="translate-y-0 sm:opacity-100 sm:scale-100"
-                            leaveTo="translate-y-full sm:opacity-0 sm:scale-95"
+                            leaveTo="translate-y-full sm:translate-y-0 sm:opacity-0 sm:scale-75"
                         >
-                            <Dialog.Panel className="flex gap-8 flex-col w-full sm:max-w-md transform overflow-hidden rounded-2xl bg-background border border-gray-800 sm:border-none p-6 shadow-xl transition-all">
+                            <Dialog.Panel className="flex gap-8 flex-col w-full sm:max-w-md transform overflow-hidden rounded-t-2xl sm:rounded-2xl bg-background border light:border-gray-400 p-6 shadow-xl transition-all">
                                 <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-foreground flex justify-between items-center">
                                     {title}
                                     <button onClick={onClose} className="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2">
