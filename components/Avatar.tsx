@@ -5,6 +5,10 @@ type Props = {
 
 export default function Avatar(props: Props) {
     const { name, size = 'medium' } = props;
+    if(!name) {
+        return;
+    }
+    
     const initials = name.split(' ').map(word => word[0].toLocaleUpperCase()).join('');
 
     return size === 'medium' ? (
