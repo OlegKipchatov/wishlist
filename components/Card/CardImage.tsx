@@ -24,8 +24,8 @@ export default function CardImage(props: Props) {
     return(
         <>
             {imageURL
-                ? <div className="relative flex justify-center max-w-96 w-full overflow-hidden">
-                    <img src={imageURL} className="hidden sm:block absolute blur-xl h-full z-0" alt="Product item image" />
+                ? <div className="relative flex justify-center sm:max-w-96 w-full overflow-hidden sm:rounded-tl-lg">
+                    <img src={imageURL} className="hidden sm:block absolute sm:rounded-tl-lg blur-xl h-full z-0" alt="Product item image" />
                     <img src={imageURL} className="rounded-t-lg sm:rounded-lg object-contain sm:z-10" alt="Product item image" />
                 </div>
             : <></>}

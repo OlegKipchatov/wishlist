@@ -18,7 +18,7 @@ export default async function Index() {
   const listUsers = await supabase.users.getListUsers();
 
   return (
-    <div className="max-w-2xl w-full pt-20 p-6 flex-1 flex flex-col gap-4 items-center">
+    <div className="max-w-2xl w-full p-6 flex-1 flex flex-col gap-4 items-center">
       <ul className="space-y-4">
         { listUsers?.map((user) => {
             const displayName = getDisplayName(user);

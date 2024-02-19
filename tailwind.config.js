@@ -16,6 +16,9 @@ module.exports = {
           "background-hover": "hsl(var(--btn-background-hover))",
         },
       },
+      animation: {
+        'spin-slow': 'spin 2s linear infinite',
+      }
     },
   },
   plugins: [],

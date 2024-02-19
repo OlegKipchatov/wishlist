@@ -30,7 +30,7 @@ export default async function List(props: Props) {
   const listItems = (await supabase.items.getListItemsById(selectUser.id)) ?? [];
 
   return (
-    <div className="w-full max-w-2xl space-y-8 p-4 sm:p-8 pt-14 sm:pt-20">
+    <div className="space-y-4 sm:space-y-8">
       {selectUser && <UserCard userMeta={selectUser} />}
       {isCurrentUser && <AddCard />}
       <ListItems id={selectUser.id} items={listItems} isCurrentUser={isCurrentUser} />
