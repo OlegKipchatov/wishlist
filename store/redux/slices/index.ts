@@ -1,2 +1,1 @@
-export * from "./counterSlice";
-export * from './editCard';
+export * from './addCard';

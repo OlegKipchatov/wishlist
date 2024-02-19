@@ -1,14 +1,9 @@
-import { selectImage, useSelector, useDispatch, editCardSlice } from "@/store/redux";
+import { useSelector, useDispatch, addCardSlice } from "@/store/redux";
 import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
 import { Card } from "@/supabase/types";
 import AddCardImage from './AddCardImage';
 import Popup from "../Popup";
-
-type Props = {
-    show: boolean,
-    onClose: () => void,
-}
 
 const parseBlobToImage = async (blobUrl: string, type: string): Promise<File> => {
     const blob = await fetch(blobUrl).then(r => r.blob());
@@ -18,10 +13,14 @@ const parseBlobToImage = async (blobUrl: string, type: string): Promise<File> =>
     return image;
 }
 
-export default function AddCardForm(props: Props) {
-    const { show, onClose } = props;
+export default function AddCardForm() {
     const dispatch = useDispatch();
-    const image = useSelector(selectImage);
+    const show = useSelector(state => state.addCard.showPopup);
+    const image = useSelector(state => state.addCard.image);
+
+    const onClosePopup = () => {
+        dispatch(addCardSlice.actions.hide());
+    }
 
     const addItem = async (formData: FormData) => {
         const imageFile = image && await parseBlobToImage(image.imageUrl, image.imageType);
@@ -36,17 +35,16 @@ export default function AddCardForm(props: Props) {
         const supabase = supabaseWorker(createClient());
         const isSetItem = await supabase.items.setItem(item);
         if(isSetItem) {
-            dispatch(editCardSlice.actions.reset());
             if(image?.imageUrl) {
                 URL.revokeObjectURL(image.imageUrl);
             }
-
-            onClose();
+            
+            dispatch(addCardSlice.actions.reset());
         }
     }
 
     return(
-        <Popup show={show} onClose={onClose} title="Add item">
+        <Popup show={show} onClose={onClosePopup} title="Add item">
             <form action={addItem}>
                 <AddCardImage />
 

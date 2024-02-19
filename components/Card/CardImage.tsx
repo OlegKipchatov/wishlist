@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { createClient } from "../../supabase/client";
+import { createClient } from "@/supabase/client";
+import { supabaseWorker } from "@/supabase/requests";
 
 type Props = {
     imageName?: string,
@@ -9,15 +10,19 @@ type Props = {
 
 export default function CardImage(props: Props) {
     const { imageName } = props;
-
     const [imageURL, setImageURL] = useState<string>();
 
-    const supabase = createClient();
-
     useEffect(() => {
+        const getPublicImageUrl = async (imageName: string) => {
+            const supabase = supabaseWorker(createClient());
+            const uid = await supabase.users.getSessionUser();
+            const publicImageUrl = await supabase.storage.getPublicCardImageUrl(imageName);
+
+            setImageURL(publicImageUrl);
+        };
+
         if(imageName) {
-            const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(imageName);
-            setImageURL(publicUrl);
+            getPublicImageUrl(imageName);
         }
     });
 

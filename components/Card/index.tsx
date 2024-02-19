@@ -36,7 +36,7 @@ export default function Card(props: Props) {
                 </div>
             </a>
 
-            <CardFooter id={item.id} title={item.title} isCurrentUser={isCurrentUser} />
+            <CardFooter item={item} isCurrentUser={isCurrentUser} />
         </div>
     );
 }

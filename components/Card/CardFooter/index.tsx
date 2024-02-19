@@ -1,18 +1,18 @@
+import { ICard } from "@/supabase/types";
 import CardFooterAuth from "./CardFooterAuth";
 import CardFooterReserve from "./CardFooterReserve";
 
 type Props = {
-    id: string,
-    title: string,
+    item: ICard,
     isCurrentUser: boolean,
 }
 
 export default function CardFooter(props: Props) {
-    const { id, title, isCurrentUser } = props;
+    const { item, isCurrentUser } = props;
 
     return(
         <>
-            { isCurrentUser ? <CardFooterAuth id={id} title={title} /> : <CardFooterReserve /> }
+            { isCurrentUser ? <CardFooterAuth item={item} /> : <CardFooterReserve /> }
         </>
     );
 }

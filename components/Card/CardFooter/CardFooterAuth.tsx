@@ -6,21 +6,21 @@ import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
 import EditSvg from "@/svg/Edit";
 import RemoveSvg from "@/svg/Remove";
+import { ICard } from "@/supabase/types";
 
 type Props = {
-    id: string,
-    title: string,
+    item: ICard,
 }
 
 const iconStyles = "inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2";
 
 export default function CardFooterAuth(props: Props) {
-    const { id, title } = props;
+    const { item } = props;
     const [show, setShow] = useState(false);
 
-    const onRremoveItem = async (e: React.MouseEvent<HTMLElement>) => {
+    const onRremoveItem = async () => {
         const supabase = supabaseWorker(createClient());
-        const isRemove = await supabase.items.removeItem(id);
+        const isRemove = await supabase.items.removeItem(item);
         if(isRemove) {
             setShow(false);
         }
@@ -40,7 +40,7 @@ export default function CardFooterAuth(props: Props) {
                 </div>
             </div>
 
-            <Popup show={show} onClose={() => setShow(false)} title={`Remove '${title}'?`}>
+            <Popup show={show} onClose={() => setShow(false)} title={`Remove '${item.title}'?`}>
                 <button className="w-full py-2.5 px-3 bg-red-600 hover:bg-red-700 active:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-400 text-white rounded-lg" onClick={onRremoveItem}>Remove item</button>
             </Popup>
         </>
