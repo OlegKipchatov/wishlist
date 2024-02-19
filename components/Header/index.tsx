@@ -3,10 +3,14 @@ import { cookies } from "next/headers";
 import { createClient } from "@/supabase/server";
 import { supabaseWorker } from '@/supabase/requests';
 import AuthButton from "@/components/Header/AuthButton";
+import { ThemeSwitcherLoading } from "./ThemeSwticher";
 import { IUser } from "@/supabase/types";
 import dynamic from "next/dynamic";
 
-const ThemeSwitcher = dynamic(() => import('./ThemeSwticher'), { ssr: false })
+const ThemeSwitcher = dynamic(() => import('./ThemeSwticher'), {
+    ssr: false,
+    loading: () => <ThemeSwitcherLoading />,
+});
 
 export default async function Header() {
     const supabase = supabaseWorker(createClient(cookies()));
@@ -23,7 +27,7 @@ export default async function Header() {
                 <ThemeSwitcher />
                 { isAuthenticated 
                     ? <AuthButton user={user as IUser} />
-                    : <Link href="/login" className="ml-auto py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">Login</Link>
+                    : <Link href="/login" className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">Login</Link>
                 }
             </div>
         </nav>
