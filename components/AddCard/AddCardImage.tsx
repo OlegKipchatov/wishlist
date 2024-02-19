@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { editCardSlice, useDispatch } from "@/store/redux";
+import { addCardSlice, useDispatch } from "@/store/redux";
 
 const MAX_SIZE = 2_097_152;
 
@@ -16,7 +16,7 @@ export default function AddCardImage() {
         }
 
         const imageBlobUrl = URL.createObjectURL(userImage);
-        dispatch(editCardSlice.actions.setImage({
+        dispatch(addCardSlice.actions.setImage({
             imageUrl: imageBlobUrl,
             imageType: userImage.type,
         }));

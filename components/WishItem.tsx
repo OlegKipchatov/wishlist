@@ -14,7 +14,7 @@ export default function WishItem(props: Props) {
     const { item, isCurrentUser } = props;
 
     return (
-        <div id={item.id}>
+        <div className="sm:w-full">
             <Card item={item} isCurrentUser={isCurrentUser} />
         </div>
     );

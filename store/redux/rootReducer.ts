@@ -1,7 +1,6 @@
 /* Instruments */
-import { counterSlice, editCardSlice } from "./slices";
+import { addCardSlice } from "./slices";
 
 export const reducer = {
-  counter: counterSlice.reducer,
-  editCard: editCardSlice.reducer,
+  addCard: addCardSlice.reducer,
 };

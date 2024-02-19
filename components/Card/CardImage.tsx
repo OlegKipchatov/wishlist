@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { createClient } from "../../supabase/client";
+import { createClient } from "@/supabase/client";
+import { supabaseWorker } from "@/supabase/requests";
 
 type Props = {
     imageName?: string,
@@ -9,23 +10,27 @@ type Props = {
 
 export default function CardImage(props: Props) {
     const { imageName } = props;
-
     const [imageURL, setImageURL] = useState<string>();
 
-    const supabase = createClient();
-
     useEffect(() => {
+        const getPublicImageUrl = async (imageName: string) => {
+            const supabase = supabaseWorker(createClient());
+            const uid = await supabase.users.getSessionUser();
+            const publicImageUrl = await supabase.storage.getPublicCardImageUrl(imageName);
+
+            setImageURL(publicImageUrl);
+        };
+
         if(imageName) {
-            const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(imageName);
-            setImageURL(publicUrl);
+            getPublicImageUrl(imageName);
         }
     });
 
     return(
         <>
             {imageURL
-                ? <div className="relative flex justify-center max-w-96 w-full overflow-hidden">
-                    <img src={imageURL} className="hidden sm:block absolute blur-xl h-full z-0" alt="Product item image" />
+                ? <div className="relative flex justify-center sm:max-w-96 w-full overflow-hidden sm:rounded-tl-lg">
+                    <img src={imageURL} className="hidden sm:block absolute sm:rounded-tl-lg blur-xl h-full z-0" alt="Product item image" />
                     <img src={imageURL} className="rounded-t-lg sm:rounded-lg object-contain sm:z-10" alt="Product item image" />
                 </div>
             : <></>}
