@@ -4,7 +4,9 @@ import { createClient } from "@/supabase/server";
 import { supabaseWorker } from '@/supabase/requests';
 import AuthButton from "@/components/Header/AuthButton";
 import { IUser } from "@/supabase/types";
-import ThemeSwitcher from "./ThemeSwticher";
+import dynamic from "next/dynamic";
+
+const ThemeSwitcher = dynamic(() => import('./ThemeSwticher'), { ssr: false })
 
 export default async function Header() {
     const supabase = supabaseWorker(createClient(cookies()));
@@ -12,7 +14,7 @@ export default async function Header() {
     const user = isAuthenticated && await supabase.users.getSessionUser();
 
     return(
-        <nav className="w-full flex fixed backdrop-blur-xl justify-center border-b border-b-foreground/10 h-16 z-50">
+        <nav className="w-full flex fixed backdrop-blur-xl justify-center border-b border-b-foreground/10 shadow-xl h-16 z-50">
             <div className="w-full max-w-4xl flex gap-4 justify-between items-center p-3 text-sm">
                 <Link href='/' className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                     <span>WishList</span>
