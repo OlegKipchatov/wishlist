@@ -15,16 +15,16 @@
     --th-primary-800: #3c0663;
     --th-primary-900: #310055;
 
-    --th-red-0: 360, 100%, 95%;
-    --th-red-100: 360, 100%, 87%;
-    --th-red-200: 360, 100%, 80%;
-    --th-red-300: 360, 91%, 69%;
-    --th-red-400: 360, 83%, 62%;
-    --th-red-500: 356, 75%, 53%;
-    --th-red-600: 354, 85%, 44%;
-    --th-red-700: 352, 90%, 35%;
-    --th-red-800: 350, 94%, 28%;
-    --th-red-900: 348, 94%, 20%;
+    --th-red-0: #e01e37;
+    --th-red-100: #da1e37;
+    --th-red-200: #c71f37;
+    --th-red-300: #bd1f36;
+    --th-red-400: #b21e35;
+    --th-red-500: #a71e34;
+    --th-red-600: #a11d33;
+    --th-red-700: #85182a;
+    --th-red-800: #6e1423;
+    --th-red-900: #641220;
 
     --th-green-0: #b7efc5;
     --th-green-100: #92e6a7;
@@ -74,6 +74,10 @@
 
   .btn-primary {
     @apply bg-primary-500 hover:bg-primary-600 active:bg-primary-700;
+  }
+
+  .btn-red {
+    @apply bg-red-300 hover:bg-red-400 active:bg-red-500 text-white;
   }
 
   .btn-focus {
