@@ -1,23 +1,20 @@
-import { UserMetadata } from "@/supabase/types";
+import { IUser } from "@/supabase/types";
 import Avatar from "./Avatar";
 
 type Props = {
-    userMeta: UserMetadata,
+    user: IUser,
 }
 
 export default function UserCard(props: Props) {
-    const { userMeta } = props;
-    const displayName = (userMeta.first_name ?? '') + (userMeta.last_name ?? '');
+    const { user } = props;
 
     return(
-        <div className="flex flex-col gap-6 justify-center items-center p-4 bg-gray-200 rounded-lg">
-            <span className="font-bold text-4xl">{userMeta.login}</span>
-            
-            { displayName &&
-                <div className="flex justify-center items-center gap-4">
-                    {displayName && <Avatar name={userMeta.first_name + ' ' + userMeta.last_name} size='large'/>}
-                    <span className="text-2xl">{userMeta.first_name + ' ' + userMeta.last_name}</span>
-                </div> }
+        <div className="flex gap-2 justify-center items-center p-4 rounded-lg">
+            <Avatar />
+            <div className="flex flex-col">
+                <span className="text-4xl">{user.first_name + ' ' + user.last_name}</span>
+                <span className="font-bold text-2xl">{user.login}</span>
+            </div>
         </div>
     );
 }

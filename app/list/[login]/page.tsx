@@ -31,7 +31,7 @@ export default async function List(props: Props) {
 
   return (
     <div className="space-y-4 sm:space-y-8">
-      {selectUser && <UserCard userMeta={selectUser} />}
+      {selectUser && <UserCard user={selectUser} />}
       {isCurrentUser && <AddCard />}
       <ListItems id={selectUser.id} items={listItems} isCurrentUser={isCurrentUser} />
     </div>
