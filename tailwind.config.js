@@ -10,7 +10,7 @@ module.exports = {
     colors: {
       white: '#fff',
       gray: {
-        '0': 'var(--th-gray-0)',
+          '0': 'var(--th-gray-0)',
         '100': 'var(--th-gray-100)',
         '200': 'var(--th-gray-200)',
         '300': 'var(--th-gray-300)',
@@ -49,16 +49,16 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          '0': 'hsl(var(--th-primary-0))',
-          '100': 'hsl(var(--th-primary-100))',
-          '200': 'hsl(var(--th-primary-200))',
-          '300': 'hsl(var(--th-primary-300))',
-          '400': 'hsl(var(--th-primary-400))',
-          '500': 'hsl(var(--th-primary-500))',
-          '600': 'hsl(var(--th-primary-600))',
-          '700': 'hsl(var(--th-primary-700))',
-          '800': 'hsl(var(--th-primary-800))',
-          '900': 'hsl(var(--th-primary-900))',
+            '0': 'var(--th-primary-0)',
+          '100': 'var(--th-primary-100)',
+          '200': 'var(--th-primary-200)',
+          '300': 'var(--th-primary-300)',
+          '400': 'var(--th-primary-400)',
+          '500': 'var(--th-primary-500)',
+          '600': 'var(--th-primary-600)',
+          '700': 'var(--th-primary-700)',
+          '800': 'var(--th-primary-800)',
+          '900': 'var(--th-primary-900)',
         },
       },
       animation: {

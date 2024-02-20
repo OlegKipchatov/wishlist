@@ -4,16 +4,16 @@
 
 @layer base {
   :root {
-    --th-primary-0: 262, 90%, 96%;
-    --th-primary-100: 262, 100%, 88%;
-    --th-primary-200: 262, 100%, 78%;
-    --th-primary-300: 264, 96%, 70%;
-    --th-primary-400: 268, 82%, 60%;
-    --th-primary-500: 273, 80%, 49%;
-    --th-primary-600: 274, 87%, 43%;
-    --th-primary-700: 274, 87%, 37%;
-    --th-primary-800: 274, 87%, 31%;
-    --th-primary-900: 276, 91%, 23%;
+    --th-primary-0: #dc97ff;
+    --th-primary-100: #d283ff;
+    --th-primary-200: #bd68ee;
+    --th-primary-300: #ab51e3;
+    --th-primary-400: #8b2fc9;
+    --th-primary-500: #6818a5;
+    --th-primary-600: #5a108f;
+    --th-primary-700: #4a0a77;
+    --th-primary-800: #3c0663;
+    --th-primary-900: #310055;
 
     --th-red-0: 360, 100%, 95%;
     --th-red-100: 360, 100%, 87%;
@@ -73,7 +73,7 @@
   }
 
   .btn-primary {
-    @apply bg-primary-700 hover:bg-primary-800 active:bg-primary-900;
+    @apply bg-primary-500 hover:bg-primary-600 active:bg-primary-700;
   }
 
   .btn-focus {
