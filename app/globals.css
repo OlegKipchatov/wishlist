@@ -37,35 +37,39 @@
     --th-green-800: 168, 80%, 23%;
     --th-green-900: 170, 97%, 15%;
 
-    --th-gray-0: 216, 33%, 97%;
-    --th-gray-100: 214, 15%, 91%;
-    --th-gray-200: 210, 16%, 82%;
-    --th-gray-300: 211, 13%, 65%;
-    --th-gray-400: 211, 10%, 53%;
-    --th-gray-500: 211, 12%, 43%;
-    --th-gray-600: 209, 14%, 37%;
-    --th-gray-700: 209, 18%, 30%;
-    --th-gray-800: 209, 20%, 25%;
-    --th-gray-900: 210, 24%, 16%;
+    --th-gray-0: #f8f9fa;
+    --th-gray-100: #e9ecef;
+    --th-gray-200: #dee2e6;
+    --th-gray-300: #ced4da;
+    --th-gray-400: #adb5bd;
+    --th-gray-500: #6c757d;
+    --th-gray-600: #495057;
+    --th-gray-700: #343a40;
+    --th-gray-800: #212529;
+    --th-gray-900: #000;
   }
   
   :root.dark {
-    --th-gray-0: 210, 24%, 16%;
-    --th-gray-100: 209, 20%, 25%;
-    --th-gray-200: 209, 18%, 30%;
-    --th-gray-300: 209, 14%, 37%;
-    --th-gray-400: 211, 12%, 43%;
-    --th-gray-500: 211, 10%, 53%;
-    --th-gray-600: 211, 13%, 65%;
-    --th-gray-700: 210, 16%, 82%;
-    --th-gray-800: 214, 15%, 91%;
-    --th-gray-900: 216, 33%, 97%;
+    --th-gray-0: #000;
+    --th-gray-100: #212529;
+    --th-gray-200: #343a40;
+    --th-gray-300: #495057;
+    --th-gray-400: #6c757d;
+    --th-gray-500: #adb5bd;
+    --th-gray-600: #ced4da;
+    --th-gray-700: #dee2e6;
+    --th-gray-800: #e9ecef;
+    --th-gray-900: #f8f9fa;
   }
 }
 
 @layer base {
   .btn-neutral {
     @apply hover:bg-gray-100 active:bg-gray-200;
+  }
+
+  .btn-neutral-100 {
+    @apply bg-gray-100 hover:bg-gray-200 active:bg-gray-300;
   }
 
   .btn-primary {
