@@ -25,19 +25,6 @@ export const supabaseWorker = (client: SupabaseClient) => {
             const { data: { user } } = await client.auth.getUser()
             return !!user;
         },
-        getListUsers: async function() {
-            try {
-                const { data, error } = await client.from('profiles').select('*');
-        
-                if (error) {
-                    console.error('Error fetching list users:', error.message);
-                    return;
-                }
-                return data as UserMetadata[];
-            } catch (e: any) {
-                console.error('Error fetching list users:', e.message);
-            }
-        },
         getUserByIdOrLogin: async function({ id, login }: GetUserMetadataProps) {
           const eqObj = id ? { column: 'id', value: id } : { column: 'login', value: login };
 
