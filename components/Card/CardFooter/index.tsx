@@ -1,6 +1,7 @@
 import { ICard } from "@/supabase/types";
 import CardFooterAuth from "./CardFooterAuth";
 import CardFooterReserve from "./CardFooterReserve";
+import { Providers } from "@/store/providers";
 
 type Props = {
     item: ICard,
@@ -12,7 +13,9 @@ export default function CardFooter(props: Props) {
 
     return(
         <>
-            { isCurrentUser ? <CardFooterAuth item={item} /> : <CardFooterReserve /> }
+            { isCurrentUser
+                ? <Providers><CardFooterAuth item={item} /></Providers>
+                : <CardFooterReserve /> }
         </>
     );
 }
