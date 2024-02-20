@@ -10,18 +10,16 @@ export default function Avatar(props: Props) {
     }
     
     const initials = name.split(' ').map(word => word[0].toLocaleUpperCase()).join('');
+    const style = {
+        container: size === 'medium' ? 'w-12 h-12' : 'w-16 h-16',
+        textSize: size === 'medium' ? '' : 'text-2xl',
+    }
 
-    return size === 'medium' ? (
-        <div className='w-12 h-12'>
-            <div className='bg-gray-400 dark:bg-gray-600 w-full h-full flex justify-center items-center rounded-full'>
-                <span className="text-foreground">{initials}</span>
+    return (
+        <div className={style.container}>
+            <div className='bg-gray-400 w-full h-full flex justify-center items-center rounded-full'>
+                <span className={style.textSize}>{initials}</span>
             </div>
-        </div>
-    ) : (
-        <div className='w-16 h-16'>
-            <div className='bg-gray-400 dark:bg-gray-600 w-full h-full flex justify-center items-center rounded-full'>
-                <span className="text-foregroun text-2xl">{initials}</span>
-            </div>
-        </div>
+        </div>  
     );
 }

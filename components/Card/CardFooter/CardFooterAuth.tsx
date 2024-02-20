@@ -1,18 +1,18 @@
 'use client';
 
 import { useState } from "react";
+import EditIcon from '@heroicons/react/24/outline/PencilSquareIcon';
+import TrashIcon from '@heroicons/react/24/outline/TrashIcon';
 import Popup from "@/components/Popup";
 import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
-import EditSvg from "@/svg/Edit";
-import RemoveSvg from "@/svg/Remove";
 import { ICard } from "@/supabase/types";
 
 type Props = {
     item: ICard,
 }
 
-const iconStyles = "inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2";
+const iconStyles = "inline-block btn-neutral btn-focus rounded-lg text-sm p-2";
 
 export default function CardFooterAuth(props: Props) {
     const { item } = props;
@@ -28,14 +28,14 @@ export default function CardFooterAuth(props: Props) {
 
     return(
         <>
-            <div className="p-2 border border-gray-200 rounded-b-lg dark:border-gray-700">
+            <div className="p-2 rounded-b-lg">
                 <div className="flex justify-end space-x-2">
                     <button type="button" className={iconStyles}>
-                        <EditSvg />
+                        <EditIcon width={20} height={20} />
                     </button>
 
                     <button type="button" className={iconStyles} onClick={() => setShow(true)}>
-                        <RemoveSvg />
+                        <TrashIcon width={20} height={20} />
                     </button>
                 </div>
             </div>

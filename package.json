@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
+    "@heroicons/react": "^2.1.1",
     "@reduxjs/toolkit": "^2.2.0",
     "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/ssr": "latest",
@@ -14,7 +15,6 @@
     "autoprefixer": "10.4.17",
     "geist": "^1.2.1",
     "next": "latest",
-    "next-themes": "^0.2.1",
     "postcss": "8.4.33",
     "react": "18.2.0",
     "react-cookie": "^7.0.2",

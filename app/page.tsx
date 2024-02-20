@@ -25,7 +25,7 @@ export default async function Index() {
 
             return(
               <li key={user.login}>
-                <Link href={`/list/${user.login}`} className="py-2 px-3 flex items-center gap-2 text-xl rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
+                <Link href={`/list/${user.login}`} className="py-2 px-3 flex items-center gap-2 text-xl rounded-md no-underline bg-gray-100 hover:bg-gray-200 active:bg-gray-300">
                   <Avatar name={displayName} />
                   {displayName}
                 </Link>
