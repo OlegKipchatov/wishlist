@@ -16,7 +16,7 @@ export default function ThemeSwitcher() {
     }
 
     return (
-        <button onClick={() => toggleTheme()} className='flex gap-4 ml-auto p-2 rounded-lg btn-neutral btn-focus'>
+        <button onClick={() => toggleTheme()} className='flex gap-4 ml-auto p-2 rounded-lg btn-neutral-100 btn-focus'>
              { themeIcon === 'dark' 
                 ? <SunIcon width={24} height={24} />
                 : <MoonIcon width={24} height={24} /> }

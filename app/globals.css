@@ -64,8 +64,12 @@
 }
 
 @layer base {
+  .btn-outlined {
+    @apply bg-gray-0 hover:bg-gray-200 active:bg-gray-300 border border-gray-200;
+  }
+
   .btn-neutral {
-    @apply hover:bg-gray-100 active:bg-gray-200;
+    @apply bg-gray-0 hover:bg-gray-100 active:bg-gray-200;
   }
 
   .btn-neutral-100 {
@@ -74,6 +78,10 @@
 
   .btn-primary {
     @apply bg-primary-500 hover:bg-primary-600 active:bg-primary-700;
+  }
+
+  .btn-green {
+    @apply bg-green-600 hover:bg-green-700 active:bg-green-800 text-white;
   }
 
   .btn-red {

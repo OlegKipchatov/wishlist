@@ -86,12 +86,12 @@ export default function Login({
         placeholder="••••••••"
         required
       />
-      <button className="btn-focus bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-lg py-2.5 mb-2">
+      <button className="btn-green btn-focus rounded-lg py-2.5 mb-2">
         Sign In
       </button>
       <button
         formAction={signUp}
-        className="btn-neutral btn-focus border border-gray-100 rounded-lg py-2.5 mb-2"
+        className="btn-outlined btn-focus rounded-lg py-2.5 mb-2"
       >
         Sign Up
       </button>
