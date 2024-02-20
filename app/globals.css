@@ -37,35 +37,35 @@
     --th-green-800: 168, 80%, 23%;
     --th-green-900: 170, 97%, 15%;
 
-    --th-neutral-0: 216, 33%, 97%;
-    --th-neutral-100: 214, 15%, 91%;
-    --th-neutral-200: 210, 16%, 82%;
-    --th-neutral-300: 211, 13%, 65%;
-    --th-neutral-400: 211, 10%, 53%;
-    --th-neutral-500: 211, 12%, 43%;
-    --th-neutral-600: 209, 14%, 37%;
-    --th-neutral-700: 209, 18%, 30%;
-    --th-neutral-800: 209, 20%, 25%;
-    --th-neutral-900: 210, 24%, 16%;
+    --th-gray-0: 216, 33%, 97%;
+    --th-gray-100: 214, 15%, 91%;
+    --th-gray-200: 210, 16%, 82%;
+    --th-gray-300: 211, 13%, 65%;
+    --th-gray-400: 211, 10%, 53%;
+    --th-gray-500: 211, 12%, 43%;
+    --th-gray-600: 209, 14%, 37%;
+    --th-gray-700: 209, 18%, 30%;
+    --th-gray-800: 209, 20%, 25%;
+    --th-gray-900: 210, 24%, 16%;
   }
   
   :root.dark {
-    --th-neutral-0: 210, 24%, 16%;
-    --th-neutral-100: 209, 20%, 25%;
-    --th-neutral-200: 209, 18%, 30%;
-    --th-neutral-300: 209, 14%, 37%;
-    --th-neutral-400: 211, 12%, 43%;
-    --th-neutral-500: 211, 10%, 53%;
-    --th-neutral-600: 211, 13%, 65%;
-    --th-neutral-700: 210, 16%, 82%;
-    --th-neutral-800: 214, 15%, 91%;
-    --th-neutral-900: 216, 33%, 97%;
+    --th-gray-0: 210, 24%, 16%;
+    --th-gray-100: 209, 20%, 25%;
+    --th-gray-200: 209, 18%, 30%;
+    --th-gray-300: 209, 14%, 37%;
+    --th-gray-400: 211, 12%, 43%;
+    --th-gray-500: 211, 10%, 53%;
+    --th-gray-600: 211, 13%, 65%;
+    --th-gray-700: 210, 16%, 82%;
+    --th-gray-800: 214, 15%, 91%;
+    --th-gray-900: 216, 33%, 97%;
   }
 }
 
 @layer base {
   .btn-neutral {
-    @apply hover:bg-neutral-100 active:bg-neutral-200;
+    @apply hover:bg-gray-100 active:bg-gray-200;
   }
 
   .btn-primary {

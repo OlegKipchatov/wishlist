@@ -9,6 +9,18 @@ module.exports = {
   theme: {
     colors: {
       white: '#fff',
+      gray: {
+        '0': 'hsl(var(--th-gray-0))',
+        '100': 'hsl(var(--th-gray-100))',
+        '200': 'hsl(var(--th-gray-200))',
+        '300': 'hsl(var(--th-gray-300))',
+        '400': 'hsl(var(--th-gray-400))',
+        '500': 'hsl(var(--th-gray-500))',
+        '600': 'hsl(var(--th-gray-600))',
+        '700': 'hsl(var(--th-gray-700))',
+        '800': 'hsl(var(--th-gray-800))',
+        '900': 'hsl(var(--th-gray-900))',
+      },
     },
     extend: {
       colors: {
@@ -47,18 +59,6 @@ module.exports = {
           '700': 'hsl(var(--th-green-700))',
           '800': 'hsl(var(--th-green-800))',
           '900': 'hsl(var(--th-green-900))',
-        },
-        neutral: {
-          '0': 'hsl(var(--th-neutral-0))',
-          '100': 'hsl(var(--th-neutral-100))',
-          '200': 'hsl(var(--th-neutral-200))',
-          '300': 'hsl(var(--th-neutral-300))',
-          '400': 'hsl(var(--th-neutral-400))',
-          '500': 'hsl(var(--th-neutral-500))',
-          '600': 'hsl(var(--th-neutral-600))',
-          '700': 'hsl(var(--th-neutral-700))',
-          '800': 'hsl(var(--th-neutral-800))',
-          '900': 'hsl(var(--th-neutral-900))',
         },
       },
       animation: {

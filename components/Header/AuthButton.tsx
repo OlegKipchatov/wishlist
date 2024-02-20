@@ -27,7 +27,7 @@ export default function AuthButton(props: Props) {
 
   return (
     <Menu as="div" className="relative flex flex-row-reverse text-left">
-      <Menu.Button className="py-2 px-3 flex rounded-md no-underline btn-focus bg-neutral-100 hover:bg-neutral-200 active:bg-neutral-300">{displayName}</Menu.Button>
+      <Menu.Button className="py-2 px-3 flex rounded-md no-underline btn-focus bg-gray-100 hover:bg-gray-200 active:bg-gray-300">{displayName}</Menu.Button>
 
       <Transition
         as={Fragment}
@@ -38,22 +38,22 @@ export default function AuthButton(props: Props) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute self-end top-9 z-10 rounded-lg shadow-2xl w-36 bg-neutral-100">
+        <Menu.Items className="absolute self-end top-9 z-10 rounded-lg shadow-2xl w-36 bg-gray-100">
           <div className="py-2 text-sm">
             <Menu.Item>
-              <Link href={`/list/${user.login}`} className="inline-flex w-full px-4 py-2 text-sm hover:bg-neutral-200 active:bg-neutral-300">
+              <Link href={`/list/${user.login}`} className="inline-flex w-full px-4 py-2 text-sm hover:bg-gray-200 active:bg-gray-300">
                 <ListBulletIcon width={24} height={24} />
                 WishList
               </Link>
             </Menu.Item>
             <Menu.Item>
-              <Link href="/settings" className="inline-flex w-full px-4 py-2 text-sm hover:bg-neutral-200 active:bg-neutral-300">
+              <Link href="/settings" className="inline-flex w-full px-4 py-2 text-sm hover:bg-gray-200 active:bg-gray-300">
                 <Cog6ToothIcon width={24} height={24} />
                 Settings
               </Link>
             </Menu.Item>
             <Menu.Item>
-              <button onClick={signOut} className="inline-flex w-full px-4 py-2 text-sm hover:bg-neutral-200 active:bg-neutral-300">
+              <button onClick={signOut} className="inline-flex w-full px-4 py-2 text-sm hover:bg-gray-200 active:bg-gray-300">
                 <ArrowLeftStartOnRectangleIcon width={24} height={24} />
                 Logout
               </button>

@@ -71,7 +71,7 @@ export default function Login({
         Email
       </label>
       <input
-        className="w-full p-2.5 rounded-lg border border-neutral-100 dark:bg-neutral-0 btn-focus mb-6"
+        className="w-full p-2.5 rounded-lg border border-gray-100 dark:bg-gray-0 btn-focus mb-6"
         name="email"
         placeholder="you@example.com"
         required
@@ -80,7 +80,7 @@ export default function Login({
         Password
       </label>
       <input
-        className="w-full p-2.5 rounded-lg border border-neutral-100 dark:bg-neutral-0 btn-focus mb-6"
+        className="w-full p-2.5 rounded-lg border border-gray-100 dark:bg-gray-0 btn-focus mb-6"
         type="password"
         name="password"
         placeholder="••••••••"
@@ -91,12 +91,12 @@ export default function Login({
       </button>
       <button
         formAction={signUp}
-        className="btn-neutral btn-focus border border-neutral-100 rounded-lg py-2.5 mb-2"
+        className="btn-neutral btn-focus border border-gray-100 rounded-lg py-2.5 mb-2"
       >
         Sign Up
       </button>
       {searchParams?.message && (
-        <p className="mt-4 p-4 bg-neutral-1 text-center">
+        <p className="mt-4 p-4 bg-gray-1 text-center">
           {searchParams.message}
         </p>
       )}

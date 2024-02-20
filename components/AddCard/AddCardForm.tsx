@@ -52,7 +52,7 @@ export default function AddCardForm() {
                     <div className="mb-5">
                         <input required name='title'
                             type="text"
-                            className='w-full p-2.5 rounded-lg border border-neutral-100 dark:bg-neutral-0 btn-focus'
+                            className='w-full p-2.5 rounded-lg border border-gray-100 dark:bg-gray-0 btn-focus'
                             placeholder="Product name"
                         />
                     </div>
@@ -60,7 +60,7 @@ export default function AddCardForm() {
                     <div className="mb-5">
                         <input name='cost'
                             type="number"
-                            className="w-full p-2.5 rounded-lg border border-neutral-100 dark:bg-neutral-0 btn-focus"
+                            className="w-full p-2.5 rounded-lg border border-gray-100 dark:bg-gray-0 btn-focus"
                             placeholder="Product cost"
                         />
                     </div>
@@ -69,7 +69,7 @@ export default function AddCardForm() {
                 <div className="mb-5">
                     <input name='link'
                         type="text"
-                        className="w-full p-2.5 rounded-lg border border-neutral-100 dark:bg-neutral-0 btn-focus"
+                        className="w-full p-2.5 rounded-lg border border-gray-100 dark:bg-gray-0 btn-focus"
                         placeholder="Product link"
                     />
                 </div>

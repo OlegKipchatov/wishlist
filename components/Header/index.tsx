@@ -18,7 +18,7 @@ export default async function Header() {
     const user = isAuthenticated && await supabase.users.getSessionUser();
 
     return(
-        <nav className="w-full flex fixed backdrop-blur-xl justify-center border-b border-b-neutral-100 shadow-xl h-16 z-50">
+        <nav className="w-full flex fixed backdrop-blur-xl justify-center border-b border-b-gray-100 shadow-xl h-16 z-50">
             <div className="w-full max-w-4xl flex gap-4 justify-between items-center p-3 text-sm">
                 <Link href='/' className="btn-focus rounded-lg self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                     <span>WishList</span>

@@ -17,7 +17,7 @@ export default function Avatar(props: Props) {
 
     return (
         <div className={style.container}>
-            <div className='bg-neutral-400 w-full h-full flex justify-center items-center rounded-full'>
+            <div className='bg-gray-400 w-full h-full flex justify-center items-center rounded-full'>
                 <span className={style.textSize}>{initials}</span>
             </div>
         </div>  

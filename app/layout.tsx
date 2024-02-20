@@ -22,13 +22,13 @@ export default async function RootLayout({
   const themeMode = getTheme(cookies());
   return (
     <html lang="en" className={GeistSans.className + ' ' + themeMode}>
-      <body className="bg-neutral-0 text-neutral-900">
+      <body className="bg-gray-0 text-gray-900">
         <Header />
         <main className="min-h-screen flex flex-col items-center pt-16">
           <div className="w-full max-w-2xl p-6">
             {children}
           </div>
-          <footer className="w-full border-t border-t-neutral-200 p-8 flex justify-center text-center text-xs">
+          <footer className="w-full border-t border-t-gray-200 p-8 flex justify-center text-center text-xs">
             <p>
               Powered by{" "}
               <a

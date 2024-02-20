@@ -26,7 +26,7 @@ export default function AddCardImage() {
 
     return(
         <div className="flex items-center justify-center w-full mb-5">
-            { !imageUrl && <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 bg-neutral-0 btn-neutral border-dashed rounded-lg cursor-pointer">
+            { !imageUrl && <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 bg-gray-0 btn-neutral border-dashed rounded-lg cursor-pointer">
                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     <CloudArrowUpIcon width={48} height={48} className="mb-2" />
                     <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>

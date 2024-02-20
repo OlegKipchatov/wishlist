@@ -14,8 +14,8 @@ export default function Card(props: Props) {
     const date = new Date(item.time);
 
     return(
-        <div className='flex flex-col justify-between w-full rounded-lg shadow-xl h-auto bg-neutral-0 border border-neutral-100'>
-            <a href={item.link ?? '#'} target="blank" className="flex flex-col sm:flex-row btn-neutral btn-focus rounded-lg border-b border-neutral-100">
+        <div className='flex flex-col justify-between w-full rounded-lg shadow-xl h-auto bg-gray-0 border border-gray-100'>
+            <a href={item.link ?? '#'} target="blank" className="flex flex-col sm:flex-row btn-neutral btn-focus rounded-lg border-b border-gray-100">
                 <CardImage imageName={item.image} />
 
                 <div className="flex flex-col justify-between p-4 space-y-4 w-full">
