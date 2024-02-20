@@ -26,16 +26,16 @@
     --th-red-800: 350, 94%, 28%;
     --th-red-900: 348, 94%, 20%;
 
-    --th-green-0: 152, 68%, 96%;
-    --th-green-100: 154, 75%, 87%;
-    --th-green-200: 156, 73%, 74%;
-    --th-green-300: 158, 58%, 62%;
-    --th-green-400: 160, 51%, 49%;
-    --th-green-500: 162, 63%, 41%;
-    --th-green-600: 164, 71%, 34%;
-    --th-green-700: 166, 72%, 28%;
-    --th-green-800: 168, 80%, 23%;
-    --th-green-900: 170, 97%, 15%;
+    --th-green-0: #b7efc5;
+    --th-green-100: #92e6a7;
+    --th-green-200: #6ede8a;
+    --th-green-300: #4ad66d;
+    --th-green-400: #2dc653;
+    --th-green-500: #25a244;
+    --th-green-600: #208b3a;
+    --th-green-700: #1a7431;
+    --th-green-800: #155d27;
+    --th-green-900: #10451d;
 
     --th-gray-0: #f8f9fa;
     --th-gray-100: #e9ecef;
