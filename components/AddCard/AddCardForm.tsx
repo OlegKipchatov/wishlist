@@ -75,7 +75,7 @@ export default function AddCardForm() {
                 </div>
                 
                 <button type="submit"
-                    className="w-full rounded-lg py-2.5 px-3 btn-focus bg-green-600 hover:bg-green-700 active:bg-green-800 text-white"
+                    className="w-full rounded-lg py-2.5 px-3 btn-green btn-focus"
                     formAction={addItem}>
                         Add item
                 </button>

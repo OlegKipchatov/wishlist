@@ -4,72 +4,88 @@
 
 @layer base {
   :root {
-    --th-primary-0: 262, 90%, 96%;
-    --th-primary-100: 262, 100%, 88%;
-    --th-primary-200: 262, 100%, 78%;
-    --th-primary-300: 264, 96%, 70%;
-    --th-primary-400: 268, 82%, 60%;
-    --th-primary-500: 273, 80%, 49%;
-    --th-primary-600: 274, 87%, 43%;
-    --th-primary-700: 274, 87%, 37%;
-    --th-primary-800: 274, 87%, 31%;
-    --th-primary-900: 276, 91%, 23%;
+    --th-primary-0: #dc97ff;
+    --th-primary-100: #d283ff;
+    --th-primary-200: #bd68ee;
+    --th-primary-300: #ab51e3;
+    --th-primary-400: #8b2fc9;
+    --th-primary-500: #6818a5;
+    --th-primary-600: #5a108f;
+    --th-primary-700: #4a0a77;
+    --th-primary-800: #3c0663;
+    --th-primary-900: #310055;
 
-    --th-red-0: 360, 100%, 95%;
-    --th-red-100: 360, 100%, 87%;
-    --th-red-200: 360, 100%, 80%;
-    --th-red-300: 360, 91%, 69%;
-    --th-red-400: 360, 83%, 62%;
-    --th-red-500: 356, 75%, 53%;
-    --th-red-600: 354, 85%, 44%;
-    --th-red-700: 352, 90%, 35%;
-    --th-red-800: 350, 94%, 28%;
-    --th-red-900: 348, 94%, 20%;
+    --th-red-0: #e01e37;
+    --th-red-100: #da1e37;
+    --th-red-200: #c71f37;
+    --th-red-300: #bd1f36;
+    --th-red-400: #b21e35;
+    --th-red-500: #a71e34;
+    --th-red-600: #a11d33;
+    --th-red-700: #85182a;
+    --th-red-800: #6e1423;
+    --th-red-900: #641220;
 
-    --th-green-0: 152, 68%, 96%;
-    --th-green-100: 154, 75%, 87%;
-    --th-green-200: 156, 73%, 74%;
-    --th-green-300: 158, 58%, 62%;
-    --th-green-400: 160, 51%, 49%;
-    --th-green-500: 162, 63%, 41%;
-    --th-green-600: 164, 71%, 34%;
-    --th-green-700: 166, 72%, 28%;
-    --th-green-800: 168, 80%, 23%;
-    --th-green-900: 170, 97%, 15%;
+    --th-green-0: #b7efc5;
+    --th-green-100: #92e6a7;
+    --th-green-200: #6ede8a;
+    --th-green-300: #4ad66d;
+    --th-green-400: #2dc653;
+    --th-green-500: #25a244;
+    --th-green-600: #208b3a;
+    --th-green-700: #1a7431;
+    --th-green-800: #155d27;
+    --th-green-900: #10451d;
 
-    --th-gray-0: 216, 33%, 97%;
-    --th-gray-100: 214, 15%, 91%;
-    --th-gray-200: 210, 16%, 82%;
-    --th-gray-300: 211, 13%, 65%;
-    --th-gray-400: 211, 10%, 53%;
-    --th-gray-500: 211, 12%, 43%;
-    --th-gray-600: 209, 14%, 37%;
-    --th-gray-700: 209, 18%, 30%;
-    --th-gray-800: 209, 20%, 25%;
-    --th-gray-900: 210, 24%, 16%;
+    --th-gray-0: #f8f9fa;
+    --th-gray-100: #e9ecef;
+    --th-gray-200: #dee2e6;
+    --th-gray-300: #ced4da;
+    --th-gray-400: #adb5bd;
+    --th-gray-500: #6c757d;
+    --th-gray-600: #495057;
+    --th-gray-700: #343a40;
+    --th-gray-800: #212529;
+    --th-gray-900: #000;
   }
   
   :root.dark {
-    --th-gray-0: 210, 24%, 16%;
-    --th-gray-100: 209, 20%, 25%;
-    --th-gray-200: 209, 18%, 30%;
-    --th-gray-300: 209, 14%, 37%;
-    --th-gray-400: 211, 12%, 43%;
-    --th-gray-500: 211, 10%, 53%;
-    --th-gray-600: 211, 13%, 65%;
-    --th-gray-700: 210, 16%, 82%;
-    --th-gray-800: 214, 15%, 91%;
-    --th-gray-900: 216, 33%, 97%;
+    --th-gray-0: #000;
+    --th-gray-100: #212529;
+    --th-gray-200: #343a40;
+    --th-gray-300: #495057;
+    --th-gray-400: #6c757d;
+    --th-gray-500: #adb5bd;
+    --th-gray-600: #ced4da;
+    --th-gray-700: #dee2e6;
+    --th-gray-800: #e9ecef;
+    --th-gray-900: #f8f9fa;
   }
 }
 
 @layer base {
+  .btn-outlined {
+    @apply bg-gray-0 hover:bg-gray-200 active:bg-gray-300 border border-gray-200;
+  }
+
   .btn-neutral {
-    @apply hover:bg-gray-100 active:bg-gray-200;
+    @apply bg-gray-0 hover:bg-gray-100 active:bg-gray-200;
+  }
+
+  .btn-neutral-100 {
+    @apply bg-gray-100 hover:bg-gray-200 active:bg-gray-300;
   }
 
   .btn-primary {
-    @apply bg-primary-700 hover:bg-primary-800 active:bg-primary-900;
+    @apply bg-primary-500 hover:bg-primary-600 active:bg-primary-700;
+  }
+
+  .btn-green {
+    @apply bg-green-600 hover:bg-green-700 active:bg-green-800 text-white;
+  }
+
+  .btn-red {
+    @apply bg-red-300 hover:bg-red-400 active:bg-red-500 text-white;
   }
 
   .btn-focus {
