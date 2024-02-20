@@ -20,7 +20,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className} suppressHydrationWarning>
-      <body className="bg-background text-foreground">
+      <body className="bg-neutral-0 text-neutral-900">
         <script id='set-theme-mode' dangerouslySetInnerHTML={{ __html: scriptSetThemeMode }}></script>
         <Header />
         <main className="min-h-screen flex flex-col items-center pt-16">

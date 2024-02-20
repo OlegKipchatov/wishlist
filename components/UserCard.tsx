@@ -10,7 +10,7 @@ export default function UserCard(props: Props) {
     const displayName = (userMeta.first_name ?? '') + (userMeta.last_name ?? '');
 
     return(
-        <div className="flex flex-col gap-6 justify-center items-center p-4 bg-gray-800 text-white rounded-lg">
+        <div className="flex flex-col gap-6 justify-center items-center p-4 bg-neutral-200 rounded-lg">
             <span className="font-bold text-4xl">{userMeta.login}</span>
             
             { displayName &&

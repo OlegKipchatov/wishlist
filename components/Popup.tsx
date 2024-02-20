@@ -2,7 +2,7 @@
 
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import CloseSvg from "@/svg/Close";
+import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
 
 type Props = {
     title: string,
@@ -40,13 +40,14 @@ export default function Popup(props: Props) {
                             leaveFrom="translate-y-0 sm:opacity-100 sm:scale-100"
                             leaveTo="translate-y-full sm:translate-y-0 sm:opacity-0 sm:scale-75"
                         >
-                            <Dialog.Panel className="flex gap-8 flex-col w-full sm:max-w-md transform overflow-hidden rounded-t-2xl sm:rounded-2xl bg-background border light:border-gray-400 p-6 shadow-xl transition-all">
+                            <Dialog.Panel className="flex gap-4 flex-col w-full sm:max-w-md transform overflow-hidden rounded-t-2xl sm:rounded-2xl bg-neutral-0 p-6 border border-neutral-200 sm:shadow-2xl transition-all">
                                 <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-foreground flex justify-between items-center">
                                     {title}
-                                    <button onClick={onClose} className="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2">
-                                        <CloseSvg />
+                                    <button onClick={onClose} className="inline-block btn-neutral btn-focus rounded-lg text-sm p-2">
+                                        <XMarkIcon width={24} height={24} />
                                     </button>
                                 </Dialog.Title>
+                                <hr className="h-px bg-neutral-200 border-0"></hr>
                                 {children}
                             </Dialog.Panel>
                         </Transition.Child>

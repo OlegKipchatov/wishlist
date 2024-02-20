@@ -71,7 +71,7 @@ export default function Login({
         Email
       </label>
       <input
-        className="rounded-md px-4 py-2 bg-inherit border mb-6"
+        className="w-full p-2.5 rounded-lg border border-neutral-100 dark:bg-neutral-0 btn-focus mb-6"
         name="email"
         placeholder="you@example.com"
         required
@@ -80,18 +80,18 @@ export default function Login({
         Password
       </label>
       <input
-        className="rounded-md px-4 py-2 bg-inherit border mb-6"
+        className="w-full p-2.5 rounded-lg border border-neutral-100 dark:bg-neutral-0 btn-focus mb-6"
         type="password"
         name="password"
         placeholder="••••••••"
         required
       />
-      <button className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2">
+      <button className="btn-focus bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-lg py-2.5 mb-2">
         Sign In
       </button>
       <button
         formAction={signUp}
-        className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
+        className="btn-neutral btn-focus border border-neutral-100 rounded-lg py-2.5 mb-2"
       >
         Sign Up
       </button>
