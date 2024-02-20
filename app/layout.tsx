@@ -27,7 +27,7 @@ export default async function RootLayout({
           <div className="w-full max-w-2xl p-6">
             {children}
           </div>
-          <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
+          <footer className="w-full border-t border-t-neutral-200 p-8 flex justify-center text-center text-xs">
             <p>
               Powered by{" "}
               <a

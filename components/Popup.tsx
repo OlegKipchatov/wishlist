@@ -41,7 +41,7 @@ export default function Popup(props: Props) {
                             leaveTo="translate-y-full sm:translate-y-0 sm:opacity-0 sm:scale-75"
                         >
                             <Dialog.Panel className="flex gap-4 flex-col w-full sm:max-w-md transform overflow-hidden rounded-t-2xl sm:rounded-2xl bg-neutral-0 p-6 border border-neutral-200 sm:shadow-2xl transition-all">
-                                <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-foreground flex justify-between items-center">
+                                <Dialog.Title as="h3" className="text-lg font-medium leading-6 flex justify-between items-center">
                                     {title}
                                     <button onClick={onClose} className="inline-block btn-neutral btn-focus rounded-lg text-sm p-2">
                                         <XMarkIcon width={24} height={24} />

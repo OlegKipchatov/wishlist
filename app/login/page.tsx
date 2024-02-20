@@ -64,7 +64,7 @@ export default function Login({
 
   return (
     <form
-      className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
+      className="animate-in flex-1 flex flex-col w-full justify-center gap-2"
       action={signIn}
     >
       <label className="text-md" htmlFor="email">
@@ -96,7 +96,7 @@ export default function Login({
         Sign Up
       </button>
       {searchParams?.message && (
-        <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
+        <p className="mt-4 p-4 bg-neutral-1 text-center">
           {searchParams.message}
         </p>
       )}
