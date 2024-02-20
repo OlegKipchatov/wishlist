@@ -1,7 +1,8 @@
 import { GeistSans } from "geist/font/sans";
 import Header from "@/components/Header";
-import { scriptSetThemeMode } from "@/utils/themes/middleware";
 import "./globals.css";
+import { cookies } from "next/headers";
+import { getTheme } from "@/utils/themes/server";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -18,10 +19,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const themeMode = getTheme(cookies());
   return (
-    <html lang="en" className={GeistSans.className} suppressHydrationWarning>
+    <html lang="en" className={GeistSans.className + ' ' + themeMode}>
       <body className="bg-neutral-0 text-neutral-900">
-        <script id='set-theme-mode' dangerouslySetInnerHTML={{ __html: scriptSetThemeMode }}></script>
         <Header />
         <main className="min-h-screen flex flex-col items-center pt-16">
           <div className="w-full max-w-2xl p-6">
