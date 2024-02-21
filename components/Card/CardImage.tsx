@@ -3,14 +3,14 @@ import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
 import { CardContext } from ".";
 
-export default function CardImage(props: any) {
+export default function CardImage() {
     const cardContext = useContext(CardContext);
     const [imageURL, setImageURL] = useState<string>();
 
     useEffect(() => {
         const getPublicImageUrl = async (imageName: string) => {
             const supabase = supabaseWorker(createClient());
-            const publicImageUrl = await supabase.storage.getPublicCardImageUrl(imageName, props.currentUserId);
+            const publicImageUrl = await supabase.storage.getPublicCardImageUrl(imageName, cardContext.currentUserId);
 
             fetch(publicImageUrl)
                 .then((responce) => {

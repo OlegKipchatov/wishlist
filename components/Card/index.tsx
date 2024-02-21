@@ -15,16 +15,19 @@ interface Props {
 
 const cardStyles = 'bg-gray-0 dark:bg-gray-100 hover:bg-gray-100 dark:hover:bg-gray-200 active:bg-gray-200 dark:active:bg-gray-300 border-gray-100 dark:border-gray-200';
 
-export const CardContext = createContext<ICard>(undefined as any);
+type CardContextType = ICard & {
+    currentUserId: string
+};
+export const CardContext = createContext<CardContextType>(undefined as any);
 
 export default function Card(props: Props) {
     const { item, currentUserId, isCurrentUser } = props;
 
     return(
-        <CardContext.Provider value={item}>
+        <CardContext.Provider value={{...item, currentUserId}}>
             <div className='flex flex-col justify-between w-full rounded-lg shadow-xl h-auto dark:bg-gray-100 border border-gray-100'>
                 <a href={item.link ?? '#'} target="blank" className={"flex flex-col sm:flex-row btn-focus rounded-lg border-b " + cardStyles}>
-                    <CardImage currentUserId={currentUserId} />
+                    <CardImage />
 
                     <div className="flex flex-col justify-between p-4 space-y-4 w-full">
                         <div className="flex flex-col space-y-2">
