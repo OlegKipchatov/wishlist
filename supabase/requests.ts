@@ -58,7 +58,7 @@ export const supabaseWorker = (client: SupabaseClient) => {
     };
 
     const storage = {
-        getPublicCardImageUrl: async function(imageName: string, userId: string = '') {
+        getPublicCardImageUrl: async function(imageName: string, userId: string | undefined = undefined) {
             const uid = userId ?? (await users.getSessionUser())?.id;
             const { data: { publicUrl } } = client.storage.from('images').getPublicUrl(`${uid}/${imageName}`);
             return publicUrl;
