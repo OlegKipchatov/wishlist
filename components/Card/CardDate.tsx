@@ -1,9 +1,9 @@
-type Props = {
-    date: Date,
-}
+import { useContext } from "react";
+import { CardContext } from ".";
 
-export default function CardDate(props: Props) {
-    const { date } = props;
+export default function CardDate() {
+    const cardContext = useContext(CardContext);
+    const date = new Date(cardContext.time);
 
     const formatter = Intl.DateTimeFormat('en', {
         year: "numeric",

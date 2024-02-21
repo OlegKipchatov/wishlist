@@ -12,7 +12,7 @@ export interface ICard {
     id: string,
     time: string,
     title: string,
-    cost?: number,
+    cost: number,
     link?: string,
     image?: string,
 }

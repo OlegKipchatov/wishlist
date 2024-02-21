@@ -1,28 +1,23 @@
-'use client';
-
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import EditIcon from '@heroicons/react/24/outline/PencilSquareIcon';
 import TrashIcon from '@heroicons/react/24/outline/TrashIcon';
 import Popup from "@/components/Popup";
 import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
-import { Card, ICard } from "@/supabase/types";
+import { Card } from "@/supabase/types";
 import EditCard from "@/components/EditCard";
+import { CardContext } from "..";
 
-type Props = {
-    item: ICard,
-}
+const iconStyles = "inline-block btn-neutral dark:btn-neutral-100 btn-focus rounded-lg text-sm p-2";
 
-const iconStyles = "inline-block btn-neutral btn-focus rounded-lg text-sm p-2";
-
-export default function CardFooterAuth(props: Props) {
-    const { item } = props;
+export default function CardFooterAuth() {
+    const cardContext = useContext(CardContext);
     const [showRemove, setShowRemove] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
 
     const onRremoveItem = async () => {
         const supabase = supabaseWorker(createClient());
-        const isRemove = await supabase.items.removeItem(item);
+        const isRemove = await supabase.items.removeItem(cardContext);
         if(isRemove) {
             onCloseRemovePopup();
         }
@@ -30,7 +25,7 @@ export default function CardFooterAuth(props: Props) {
 
     const onEditCard = useCallback(async (card: Card) => {
         const supabase = supabaseWorker(createClient());
-        const isEdited = await supabase.items.updateItem(card, item.id);
+        const isEdited = await supabase.items.updateItem(cardContext, card);
         if(isEdited) {
             onCloseEditPopup();
         }
@@ -58,12 +53,12 @@ export default function CardFooterAuth(props: Props) {
                 </div>
             </div>
 
-            <Popup show={showRemove} onClose={onCloseRemovePopup} title={`Remove '${item.title}'?`}>
+            <Popup show={showRemove} onClose={onCloseRemovePopup} title={`Remove '${cardContext.title}'?`}>
                 <button className="w-full py-2.5 px-3 btn-red btn-focus rounded-lg" onClick={onRremoveItem}>Remove item</button>
             </Popup>
 
             <Popup show={showEdit} onClose={onCloseEditPopup} title='Edit item'>
-                <EditCard onCard={onEditCard} item={item} type='edit' />
+                <EditCard onCard={onEditCard} item={cardContext} type='edit' />
             </Popup>
         </>
     );

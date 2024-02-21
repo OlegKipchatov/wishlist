@@ -1,39 +1,49 @@
+'use client'
+
 import CardImage from "./CardImage";
 import CardDate from "./CardDate";
 import CardFooter from "./CardFooter";
 import CardCost from "./CardCost";
 import { ICard } from "@/supabase/types";
+import { createContext } from "react";
 
 interface Props {
     item: ICard,
+    currentUserId: string,
     isCurrentUser: boolean,
 }
 
 const cardStyles = 'bg-gray-0 dark:bg-gray-100 hover:bg-gray-100 dark:hover:bg-gray-200 active:bg-gray-200 dark:active:bg-gray-300 border-gray-100 dark:border-gray-200';
 
+type CardContextType = ICard & {
+    currentUserId: string
+};
+export const CardContext = createContext<CardContextType>(undefined as any);
+
 export default function Card(props: Props) {
-    const { item, isCurrentUser } = props;
-    const date = new Date(item.time);
+    const { item, currentUserId, isCurrentUser } = props;
 
     return(
-        <div className='flex flex-col justify-between w-full rounded-lg shadow-xl h-auto dark:bg-gray-100 border border-gray-100'>
-            <a href={item.link ?? '#'} target="blank" className={"flex flex-col sm:flex-row btn-focus rounded-lg border-b " + cardStyles}>
-                <CardImage imageName={item.image} />
+        <CardContext.Provider value={{...item, currentUserId}}>
+            <div className='flex flex-col justify-between w-full rounded-lg shadow-xl h-auto dark:bg-gray-100 border border-gray-100'>
+                <a href={item.link ?? '#'} target="blank" className={"flex flex-col sm:flex-row btn-focus rounded-lg border-b " + cardStyles}>
+                    <CardImage />
 
-                <div className="flex flex-col justify-between p-4 space-y-4 w-full">
-                    <div className="flex flex-col space-y-2">
-                        <span className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            {item.title}
-                        </span>
+                    <div className="flex flex-col justify-between p-4 space-y-4 w-full">
+                        <div className="flex flex-col space-y-2">
+                            <span className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                {item.title}
+                            </span>
 
-                        <CardCost cost={item.cost}/>
+                            <CardCost />
+                        </div>
+
+                        <CardDate />
                     </div>
+                </a>
 
-                    <CardDate date={date}/>
-                </div>
-            </a>
-
-            <CardFooter item={item} isCurrentUser={isCurrentUser} />
-        </div>
+                <CardFooter isCurrentUser={isCurrentUser} />
+            </div>
+        </CardContext.Provider>
     );
 }
