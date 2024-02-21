@@ -5,7 +5,6 @@ import { RealtimePostgresDeletePayload, RealtimePostgresInsertPayload, RealtimeP
 import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
 import { ICard } from "@/supabase/types";
-import WishItem from "./WishItem";
 import Card from "./Card";
 
 type Props = {
