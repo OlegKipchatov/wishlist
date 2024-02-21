@@ -2,17 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import CloudArrowUpIcon from '@heroicons/react/24/outline/CloudArrowUpIcon';
 import { supabaseWorker } from "@/supabase/requests";
 import { createClient } from "@/supabase/client";
-import { CardBlobImage } from "@/utils/card";
+import { CardBlobImage, updateImageName } from "@/utils/card";
 
 const MAX_SIZE = 2_097_152;
 
 type Props = {
     imageName?: string,
-    setBlobImage: (newValue: CardBlobImage) => void,
+    setImage: (newValue: File) => void,
 };
 
 export default function EditCardImage(props: Props) {
-    const { imageName, setBlobImage } = props;
+    const { imageName, setImage } = props;
     const [imageUrl, setImageUrl] = useState<string>();
     const inputFileRef = useRef<HTMLInputElement>(null);
 
@@ -27,6 +27,12 @@ export default function EditCardImage(props: Props) {
         if(imageName) {
             getPublicImageUrl(imageName);
         }
+
+        return () => {
+            if(imageUrl) {
+                URL.revokeObjectURL(imageUrl);
+            }
+        }
     }, []);
 
     const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,10 +44,9 @@ export default function EditCardImage(props: Props) {
         const imageBlobUrl = URL.createObjectURL(userImage);
         setImageUrl(imageBlobUrl);
 
-        setBlobImage({
-            blobUrl: imageBlobUrl,
-            imageType: userImage.type,
-        });
+        const imageName = imageBlobUrl.split('/').pop() as string;
+        const cardImage = updateImageName(userImage, imageName);
+        setImage(cardImage);
     }
 
     return(
@@ -56,7 +61,7 @@ export default function EditCardImage(props: Props) {
 
             {imageUrl && <img src={imageUrl} className="h-64 hover:cursor-pointer" onClick={() => inputFileRef.current?.click()} />}
 
-            <input ref={inputFileRef} id="dropzone-file" type="file" className="hidden" accept="image/png, image/jpeg" onChange={uploadImage} />
+            <input ref={inputFileRef} id="dropzone-file" type="file" className="hidden" accept="image/png, image/jpeg, image/webp" onChange={uploadImage} />
         </div>
     );
 }

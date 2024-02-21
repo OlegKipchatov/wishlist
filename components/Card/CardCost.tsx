@@ -1,22 +1,19 @@
-'use click'
-
-import { useEffect, useState } from "react";
-
-type Props = {
-    cost: Number | undefined,
-}
+import { useContext, useEffect, useState } from "react";
+import { CardContext } from ".";
 
 const numberFormat = Intl.NumberFormat(undefined, {style: 'currency', currency: 'RUB', maximumFractionDigits: 0});
 
-export default function CardCost(props: Props) {
-    const { cost } = props;
-    const [displayCost, setDisplayCost] = useState(cost?.toString());
+export default function CardCost() {
+    const cardContext = useContext(CardContext);
+    const [displayCost, setDisplayCost] = useState(cardContext.cost.toString());
 
     useEffect(() => {
-        setDisplayCost(numberFormat.format(cost as number));
+        if(cardContext.cost) {
+            setDisplayCost(numberFormat.format(cardContext.cost));
+        }
     }, []);
 
     return(
-        <> { cost ? <span className="text-xl tracking-tight text-gray-900 dark:text-white">{displayCost}</span> : <></> } </>
+        <> { cardContext.cost ? <span className="text-xl tracking-tight text-gray-900 dark:text-white">{displayCost}</span> : <></> } </>
     );
 }

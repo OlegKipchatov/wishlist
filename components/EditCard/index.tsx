@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import { Card, ICard } from "@/supabase/types";
-import { CardBlobImage, getImageByBlob } from "@/utils/card";
 import EditCardImage from "./EditCardImage";
 
 type Props = {
@@ -13,36 +12,27 @@ export default function EditCard(props: Props) {
     const { item, type, onCard } = props;
     const formButtonText = type === 'edit' ? 'Edit item' : 'Add item';
 
-    const [image, setImage] = useState<CardBlobImage>();
+    const [image, setImage] = useState<File>();
 
     const onFormAction = async (formData: FormData) => {
-        const imageFile = image && await getImageByBlob(image.blobUrl, image.imageType);
         const newCard: Card = {
             title: formData.get('title') as string,
             cost: Number(formData.get('cost')),
             link: formData.get('link') as string,
             time: new Date().toISOString(),
-            image: imageFile,
+            image: image,
         };
 
         return onCard(newCard);
     }
 
-    const setBlobImage = useCallback((image: CardBlobImage) => {
-        setImage(image);
-    }, []);
-
-    useEffect(() => {
-        return () => {
-            if(image?.blobUrl) {
-                URL.revokeObjectURL(image.blobUrl);
-            }
-        }
+    const setImageCallback = useCallback((newImage: File) => {
+        setImage(newImage);
     }, []);
 
     return(
         <form action={onFormAction}>
-            <EditCardImage imageName={item?.image} setBlobImage={setBlobImage}/>
+            <EditCardImage imageName={item?.image} setImage={setImageCallback}/>
 
             <div className="grid md:grid-cols-2 md:gap-6">
                 <div className="mb-5">

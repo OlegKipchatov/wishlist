@@ -104,33 +104,13 @@ export const supabaseWorker = (client: SupabaseClient) => {
     const items = {
         setItem: async function(item: Card) {
             try {
-                if(item.image) {
-                    await storage.uploadCardImage(item.image);
-                }
-
-                const { error } = await client.from('wish_list').insert({...item, image: item.image?.name});
-
-                if (error) {
-                    console.error('Error set product:', error.message);
-                    return false;
-                }
-
-                return true;
-            } catch (e: any) {
-                console.error('Error set product:', e.message);
-                return false;
-            }
-        },
-        updateItem: async function(item: Card, id: string) {
-            try {
-                if(item.image) {
-                    await storage.uploadCardImage(item.image);
-                }
-
                 const { error } = await client
                     .from('wish_list')
-                    .update({...item, image: item.image?.name})
-                    .eq('id', id);
+                    .insert({...item, image: item.image?.name});
+
+                if(item.image) {
+                    await storage.uploadCardImage(item.image);
+                }
 
                 if (error) {
                     console.error('Error set product:', error.message);
@@ -143,13 +123,36 @@ export const supabaseWorker = (client: SupabaseClient) => {
                 return false;
             }
         },
-        removeItem: async function(item: ICard) {
+        updateItem: async function(oldCard: ICard, newCard: Card) {
             try {
-                if(item.image) {
-                    await storage.removeCardImage(item.image);
+                const { error } = await client
+                    .from('wish_list')
+                    .update({...newCard, image: newCard.image?.name})
+                    .eq('id', oldCard.id);
+
+                if(newCard.image) {
+                    await storage.uploadCardImage(newCard.image);
                 }
 
-                const { error } = await client.from('wish_list').delete().eq('id', item.id);
+                if(oldCard.image) {
+                    storage.removeCardImage(oldCard.image);
+                }
+
+                if (error) {
+                    console.error('Error set product:', error.message);
+                    return false;
+                }
+
+                return true;
+            } catch (e: any) {
+                console.error('Error set product:', e.message);
+                return false;
+            }
+        },
+        removeItem: async function(card: ICard) {
+            try {
+                const { error } = await client.from('wish_list').delete().eq('id', card.id);
+                storage.removeCardImage(card.id);
         
                 if (error) {
                     console.error('Error remove product:', error.message);
