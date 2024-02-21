@@ -6,7 +6,6 @@ import { createClient } from '@/supabase/server';
 import { supabaseWorker } from '@/supabase/requests';
 import { cookies } from "next/headers";
 import UserCard from "@/components/UserCard";
-import { ICard } from "@/supabase/types";
 
 type Props = {
   params: {

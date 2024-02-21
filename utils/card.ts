@@ -5,3 +5,8 @@ export const getImageByBlob = async (blobUrl: string, type: string): Promise<Fil
     const image = new File([blob], imageName, { type: type });
     return image;
 }
+
+export type CardBlobImage = {
+    blobUrl: string,
+    imageType: string,
+}

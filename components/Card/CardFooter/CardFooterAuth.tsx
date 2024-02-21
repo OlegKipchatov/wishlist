@@ -8,8 +8,6 @@ import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
 import { Card, ICard } from "@/supabase/types";
 import EditCard from "@/components/EditCard";
-import { useSelector } from "@/store/redux";
-import { getImageByBlob } from "@/utils/card";
 
 type Props = {
     item: ICard,
@@ -22,38 +20,27 @@ export default function CardFooterAuth(props: Props) {
     const [showRemove, setShowRemove] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
 
-    const image = useSelector(state => state.addCard.image);
-
     const onRremoveItem = async () => {
         const supabase = supabaseWorker(createClient());
         const isRemove = await supabase.items.removeItem(item);
         if(isRemove) {
-            closeRemovePopup();
+            onCloseRemovePopup();
         }
     }
 
-    const editCard = async (formData: FormData) => {
-        debugger;
-        const imageFile = image && await getImageByBlob(image.imageUrl, image.imageType);
-        const updatedItem: Card = {
-            title: formData.get('title') as string,
-            cost: Number(formData.get('cost')),
-            link: formData.get('link') as string,
-            time: new Date().toISOString(),
-            image: imageFile,
-        }
-
+    const onEditCard = useCallback(async (card: Card) => {
         const supabase = supabaseWorker(createClient());
-        await supabase.items.updateItem(updatedItem, item.id);
+        const isEdited = await supabase.items.updateItem(card, item.id);
+        if(isEdited) {
+            onCloseEditPopup();
+        }
+    }, []);
 
-        closeEditPopup();
-    }
-
-    const closeRemovePopup = useCallback(() => {
+    const onCloseRemovePopup = useCallback(() => {
         setShowRemove((show) => show = false);
     }, []);
 
-    const closeEditPopup = useCallback(() => {
+    const onCloseEditPopup = useCallback(() => {
         setShowEdit((show) => show = false);
     }, []);
 
@@ -71,12 +58,12 @@ export default function CardFooterAuth(props: Props) {
                 </div>
             </div>
 
-            <Popup show={showRemove} onClose={closeRemovePopup} title={`Remove '${item.title}'?`}>
+            <Popup show={showRemove} onClose={onCloseRemovePopup} title={`Remove '${item.title}'?`}>
                 <button className="w-full py-2.5 px-3 btn-red btn-focus rounded-lg" onClick={onRremoveItem}>Remove item</button>
             </Popup>
 
-            <Popup show={showEdit} onClose={closeEditPopup} title='Edit item'>
-                <EditCard formAction={editCard} item={item} type='edit' />
+            <Popup show={showEdit} onClose={onCloseEditPopup} title='Edit item'>
+                <EditCard onCard={onEditCard} item={item} type='edit' />
             </Popup>
         </>
     );
