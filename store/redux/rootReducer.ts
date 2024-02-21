@@ -1,6 +1,6 @@
-/* Instruments */
-import { addCardSlice } from "./slices";
+import { tempSlice } from './slices';
 
+/* Instruments */
 export const reducer = {
-  addCard: addCardSlice.reducer,
+    temp: tempSlice.reducer,
 };

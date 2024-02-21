@@ -1,1 +1,1 @@
-export * from './addCard';
+export * from './temp';

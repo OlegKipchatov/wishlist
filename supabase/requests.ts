@@ -121,6 +121,28 @@ export const supabaseWorker = (client: SupabaseClient) => {
                 return false;
             }
         },
+        updateItem: async function(item: Card, id: string) {
+            try {
+                if(item.image) {
+                    await storage.uploadCardImage(item.image);
+                }
+
+                const { error } = await client
+                    .from('wish_list')
+                    .update({...item, image: item.image?.name})
+                    .eq('id', id);
+
+                if (error) {
+                    console.error('Error set product:', error.message);
+                    return false;
+                }
+
+                return true;
+            } catch (e: any) {
+                console.error('Error set product:', e.message);
+                return false;
+            }
+        },
         removeItem: async function(item: ICard) {
             try {
                 if(item.image) {

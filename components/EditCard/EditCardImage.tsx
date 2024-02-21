@@ -1,14 +1,33 @@
-import { useRef, useState } from "react";
-import { addCardSlice, useDispatch } from "@/store/redux";
+import { useEffect, useRef, useState } from "react";
 import CloudArrowUpIcon from '@heroicons/react/24/outline/CloudArrowUpIcon';
+import { supabaseWorker } from "@/supabase/requests";
+import { createClient } from "@/supabase/client";
+import { CardBlobImage } from "@/utils/card";
 
 const MAX_SIZE = 2_097_152;
 
-export default function AddCardImage() {
+type Props = {
+    imageName?: string,
+    setBlobImage: (newValue: CardBlobImage) => void,
+};
+
+export default function EditCardImage(props: Props) {
+    const { imageName, setBlobImage } = props;
     const [imageUrl, setImageUrl] = useState<string>();
     const inputFileRef = useRef<HTMLInputElement>(null);
 
-    const dispatch = useDispatch();
+    useEffect(() => {
+        const getPublicImageUrl = async (imageName: string) => {
+            const supabase = supabaseWorker(createClient());
+            const publicImageUrl = await supabase.storage.getPublicCardImageUrl(imageName);
+
+            setImageUrl(publicImageUrl);
+        };
+
+        if(imageName) {
+            getPublicImageUrl(imageName);
+        }
+    }, []);
 
     const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         const userImage = e.currentTarget.files?.item(0) as File;
@@ -17,11 +36,12 @@ export default function AddCardImage() {
         }
 
         const imageBlobUrl = URL.createObjectURL(userImage);
-        dispatch(addCardSlice.actions.setImage({
-            imageUrl: imageBlobUrl,
-            imageType: userImage.type,
-        }));
         setImageUrl(imageBlobUrl);
+
+        setBlobImage({
+            blobUrl: imageBlobUrl,
+            imageType: userImage.type,
+        });
     }
 
     return(
