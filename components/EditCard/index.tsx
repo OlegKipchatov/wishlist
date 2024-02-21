@@ -1,7 +1,7 @@
+import { useCallback, useEffect, useState } from "react";
 import { Card, ICard } from "@/supabase/types";
-import EditCardImage, { EditCardImageContext } from "./EditCardImage";
 import { CardBlobImage, getImageByBlob } from "@/utils/card";
-import { useEffect, useState } from "react";
+import EditCardImage from "./EditCardImage";
 
 type Props = {
     item?: ICard,
@@ -28,6 +28,10 @@ export default function EditCard(props: Props) {
         return onCard(newCard);
     }
 
+    const setBlobImage = useCallback((image: CardBlobImage) => {
+        setImage(image);
+    }, []);
+
     useEffect(() => {
         return () => {
             if(image?.blobUrl) {
@@ -38,9 +42,7 @@ export default function EditCard(props: Props) {
 
     return(
         <form action={onFormAction}>
-            <EditCardImageContext.Provider value={{ setBlobImage: setImage }}>
-                <EditCardImage imageName={item?.image}/>
-            </EditCardImageContext.Provider>
+            <EditCardImage imageName={item?.image} setBlobImage={setBlobImage}/>
 
             <div className="grid md:grid-cols-2 md:gap-6">
                 <div className="mb-5">

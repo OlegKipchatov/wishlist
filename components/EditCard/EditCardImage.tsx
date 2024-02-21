@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CloudArrowUpIcon from '@heroicons/react/24/outline/CloudArrowUpIcon';
 import { supabaseWorker } from "@/supabase/requests";
 import { createClient } from "@/supabase/client";
@@ -8,20 +8,13 @@ const MAX_SIZE = 2_097_152;
 
 type Props = {
     imageName?: string,
+    setBlobImage: (newValue: CardBlobImage) => void,
 };
-
-type EditCardImageContextType = {
-    setBlobImage: (newValue: CardBlobImage) => void
-};
-
-export const EditCardImageContext = createContext<EditCardImageContextType | undefined>(undefined);
 
 export default function EditCardImage(props: Props) {
-    const { imageName } = props;
+    const { imageName, setBlobImage } = props;
     const [imageUrl, setImageUrl] = useState<string>();
     const inputFileRef = useRef<HTMLInputElement>(null);
-
-    const imageContext = useContext(EditCardImageContext);
 
     useEffect(() => {
         const getPublicImageUrl = async (imageName: string) => {
@@ -43,12 +36,12 @@ export default function EditCardImage(props: Props) {
         }
 
         const imageBlobUrl = URL.createObjectURL(userImage);
-        imageContext?.setBlobImage({
+        setImageUrl(imageBlobUrl);
+
+        setBlobImage({
             blobUrl: imageBlobUrl,
             imageType: userImage.type,
         });
-
-        setImageUrl(imageBlobUrl);
     }
 
     return(
