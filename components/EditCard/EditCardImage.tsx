@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import CloudArrowUpIcon from '@heroicons/react/24/outline/CloudArrowUpIcon';
 import { supabaseWorker } from "@/supabase/requests";
 import { createClient } from "@/supabase/client";
-import { CardBlobImage, updateImageName } from "@/utils/card";
+import { updateImageName } from "@/utils/card";
 
 const MAX_SIZE = 2_097_152;
 

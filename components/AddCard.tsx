@@ -19,8 +19,10 @@ export default function AddCard() {
         const supabase = supabaseWorker(createClient());
         const isAddCard = await supabase.items.setItem(card);
         if(isAddCard) {
-            onClosePopup();
+            // TODO: Add error message
         }
+
+        onClosePopup();
     }, []);
 
     return(

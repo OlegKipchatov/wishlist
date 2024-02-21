@@ -58,8 +58,8 @@ export const supabaseWorker = (client: SupabaseClient) => {
     };
 
     const storage = {
-        getPublicCardImageUrl: async function(imageName: string) {
-            const uid = (await users.getSessionUser())?.id;
+        getPublicCardImageUrl: async function(imageName: string, userId: string = '') {
+            const uid = userId ?? (await users.getSessionUser())?.id;
             const { data: { publicUrl } } = client.storage.from('images').getPublicUrl(`${uid}/${imageName}`);
             return publicUrl;
         },
@@ -152,7 +152,9 @@ export const supabaseWorker = (client: SupabaseClient) => {
         removeItem: async function(card: ICard) {
             try {
                 const { error } = await client.from('wish_list').delete().eq('id', card.id);
-                storage.removeCardImage(card.id);
+                if(card.image) {
+                    storage.removeCardImage(card.image);
+                }
         
                 if (error) {
                     console.error('Error remove product:', error.message);

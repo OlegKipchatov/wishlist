@@ -8,8 +8,6 @@ interface Props {
     isCurrentUser: boolean,
 }
 
-export type OnEditCardEvent = (e: { isEdit: boolean }) => void;
-
 export default function WishItem(props: Props) {
     const { item, isCurrentUser } = props;
 

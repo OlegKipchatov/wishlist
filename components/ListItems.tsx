@@ -6,6 +6,7 @@ import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
 import { ICard } from "@/supabase/types";
 import WishItem from "./WishItem";
+import Card from "./Card";
 
 type Props = {
     items: ICard[] | undefined,
@@ -14,13 +15,13 @@ type Props = {
 }
 
 export default function ListItems(props: Props) {
-    const { items, isCurrentUser } = props;
+    const { id, items, isCurrentUser } = props;
     const [cards, setCards] = useState(items ?? []);
 
     const defaultFilter = {
         schema: 'public',
         table: 'wish_list',
-        filter: `user_id=eq.${props.id}`,
+        filter: `user_id=eq.${id}`,
     };
 
     const addCard = (payload: RealtimePostgresInsertPayload<ICard>) => {
@@ -47,7 +48,7 @@ export default function ListItems(props: Props) {
     
     return (
         <div className="space-y-4 sm:space-y-8 flex items-center flex-col sm:items-stretch">
-            {cards?.map((item) => <WishItem key={item.id} item={item} isCurrentUser={isCurrentUser}></WishItem>)}
+            {cards?.map((item) => <Card key={item.id} item={item} currentUserId={id} isCurrentUser={isCurrentUser}></Card>)}
         </div>
     );
 }
