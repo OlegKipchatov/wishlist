@@ -1,15 +1,13 @@
-import Link from "next/link";
 import { headers, cookies } from "next/headers";
 import { createClient } from "@/supabase/server";
 import { redirect } from "next/navigation";
+import AuthButtons from "@/components/OAuth/AuthButtons";
 
 export default function Login({
   searchParams,
 }: {
   searchParams: { message: string };
 }) {
-  
-
   const signIn = async (formData: FormData) => {
     "use server";
 
@@ -86,6 +84,9 @@ export default function Login({
         placeholder="••••••••"
         required
       />
+
+      <AuthButtons />
+
       <button className="btn-green btn-focus rounded-lg py-2.5 mb-2">
         Sign In
       </button>

@@ -12,6 +12,7 @@
     "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
+    "@vkid/sdk": "^1.1.0",
     "autoprefixer": "10.4.17",
     "geist": "^1.2.1",
     "next": "latest",
