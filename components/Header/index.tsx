@@ -6,6 +6,7 @@ import AuthButton from "@/components/Header/AuthButton";
 import { ThemeSwitcherLoading } from "./ThemeSwticher";
 import { IUser } from "@/supabase/types";
 import dynamic from "next/dynamic";
+import { Button } from '@nextui-org/react';
 
 const ThemeSwitcher = dynamic(() => import('./ThemeSwticher'), {
     ssr: false,
@@ -27,7 +28,10 @@ export default async function Header() {
                 <ThemeSwitcher />
                 { isAuthenticated 
                     ? <AuthButton user={user as IUser} />
-                    : <Link href="/login" className="py-2 px-3 flex rounded-md no-underline btn-focus bg-green-600 hover:bg-green-700 active:bg-green-800 text-white">Login</Link>
+                    : <div className="flex gap-2">
+                        <Button href="/signin" variant='ghost'>SignIn</Button>
+                        <Button href="/signup" color='success'>SignUp</Button>
+                    </div>
                 }
             </div>
         </nav>
