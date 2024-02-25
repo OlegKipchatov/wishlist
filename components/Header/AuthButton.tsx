@@ -37,9 +37,9 @@ export default function AuthButton(props: Props) {
           <DropdownItem key='wishlist' href={`/list/${user.login}`} as={Link} startContent={<ListBulletIcon height={20}/>}>
             WishList
           </DropdownItem>
-          <DropdownItem key='settings' href={`/settings`} as={Link} startContent={<Cog6ToothIcon height={20}/>}>
+          {/* <DropdownItem key='settings' href={`/settings`} as={Link} startContent={<Cog6ToothIcon height={20}/>}>
             Settings
-          </DropdownItem>
+          </DropdownItem> */}
         </DropdownSection>
         <DropdownSection title='Danger zone'>
           <DropdownItem key='logout'
