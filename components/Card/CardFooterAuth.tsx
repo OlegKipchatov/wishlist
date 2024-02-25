@@ -6,7 +6,7 @@ import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
 import { Card } from "@/supabase/types";
 import EditCard from "@/components/EditCard";
-import { CardContext } from "..";
+import { CardContext } from "../Card";
 
 const iconStyles = "inline-block btn-neutral dark:btn-neutral-100 btn-focus rounded-lg text-sm p-2";
 

@@ -23,6 +23,7 @@ export default async function List(props: Props) {
     return redirect('/');
   }
 
+  const isAuthenticated = await supabase.users.isAuthenticated();
   const sessionUser = await supabase.users.getSessionUser();
   const isCurrentUser = selectUser.id === sessionUser?.id;
   
@@ -32,7 +33,7 @@ export default async function List(props: Props) {
     <div className="space-y-4 sm:space-y-8">
       {selectUser && <UserCard user={selectUser} />}
       {isCurrentUser && <AddCard />}
-      <ListItems id={selectUser.id} items={listItems} isCurrentUser={isCurrentUser} />
+      <ListItems id={selectUser.id} items={listItems} isCurrentUser={isCurrentUser} isAuthenticated={isAuthenticated} />
     </div>
   );
 }

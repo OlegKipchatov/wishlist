@@ -1,20 +1,21 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RealtimePostgresDeletePayload, RealtimePostgresInsertPayload, RealtimePostgresUpdatePayload } from "@supabase/supabase-js";
 import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
 import { ICard } from "@/supabase/types";
-import Card from "./Card";
+import Card from "@/components/Card";
 
 type Props = {
+    id: string,
     items: ICard[] | undefined,
     isCurrentUser: boolean,
-    id: string,
+    isAuthenticated: boolean,
 }
 
 export default function ListItems(props: Props) {
-    const { id, items, isCurrentUser } = props;
+    const { id, items, isCurrentUser, isAuthenticated } = props;
     const [cards, setCards] = useState(items ?? []);
 
     const defaultFilter = {
@@ -39,16 +40,22 @@ export default function ListItems(props: Props) {
 
     const supabase = supabaseWorker(createClient());
 
-    supabase.client.channel('wish_list_changes')
-        .on('postgres_changes', { event: 'INSERT', ...defaultFilter }, addCard)
-        .on('postgres_changes', { event: 'UPDATE', ...defaultFilter }, updateCard)
-        .on('postgres_changes', { event: 'DELETE', ...defaultFilter }, removeCard)
-        .subscribe();
     
+    useEffect(() => {
+        const chanel = supabase.client.channel('wish_list_changes')
+            .on('postgres_changes', { event: 'INSERT', ...defaultFilter }, addCard)
+            .on('postgres_changes', { event: 'UPDATE', ...defaultFilter }, updateCard)
+            .on('postgres_changes', { event: 'DELETE', ...defaultFilter }, removeCard)
+            .subscribe();
+        
+        return () => {
+            supabase.client.removeChannel(chanel);
+        }
+    }, []);
+
     return (
-        <div className="space-y-4 sm:space-y-8 flex items-center flex-col sm:items-stretch">
-            {cards?.map((item) => <Card key={item.id} item={item} currentUserId={id} isCurrentUser={isCurrentUser}></Card>)}
+        <div className="space-y-4 flex flex-col items-center">
+            {cards?.map((item) => <Card key={item.id} card={item} currentUserId={id} isCurrentUser={isCurrentUser} isAuthenticated={isAuthenticated}></Card>)}
         </div>
     );
 }
-  
