@@ -14,7 +14,11 @@ export default function Popup(props: Props) {
     const { show, title, onClose, children } = props;
 
     return (
-        <Modal isOpen={show} onClose={onClose} backdrop='blur' hideCloseButton={true}>
+        <Modal isOpen={show} onClose={onClose} backdrop='blur' hideCloseButton={true}
+            classNames={{
+                base: 'md:max-w-4xl'
+            }}
+        >
             <ModalContent>
                 {(onClose) => (<>
                     <ModalHeader className='flex justify-between items-center'>

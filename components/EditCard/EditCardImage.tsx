@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Image, Button } from '@nextui-org/react';
 import CloudArrowUpIcon from '@heroicons/react/24/outline/CloudArrowUpIcon';
 import { supabaseWorker } from "@/supabase/requests";
 import { createClient } from "@/supabase/client";
@@ -50,16 +51,25 @@ export default function EditCardImage(props: Props) {
     }
 
     return(
-        <div className="flex items-center justify-center w-full mb-5">
-            { !imageUrl && <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 bg-gray-0 btn-neutral border-dashed rounded-lg cursor-pointer">
+        <div className="flex flex-col items-center justify-center w-full md:w-auto mb-5 md:mb-0">
+            { !imageUrl && <Button as='label' htmlFor='dropzone-file'
+                variant='light'
+                className="flex flex-col items-center justify-center w-full max-w-64 h-64 border-2 border-dashed"
+            >
                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <CloudArrowUpIcon width={48} height={48} className="mb-2" />
+                    <CloudArrowUpIcon width={48} height={48} className="mb-2 text-gray-500" />
                     <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">PNG or JPG (MAX 2MB)</p>
                 </div>
-            </label> }
+            </Button> }
 
-            {imageUrl && <img src={imageUrl} className="h-64 hover:cursor-pointer" onClick={() => inputFileRef.current?.click()} />}
+            { imageUrl && <Image
+                isBlurred
+                src={imageUrl}
+                width={256} height={256}
+                className="hover:cursor-pointer"
+                onClick={() => inputFileRef.current?.click()}
+            /> }
 
             <input ref={inputFileRef} id="dropzone-file" type="file" className="hidden" accept="image/png, image/jpeg, image/webp" onChange={uploadImage} />
         </div>
