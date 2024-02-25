@@ -3,15 +3,11 @@ import { cookies } from "next/headers";
 import { createClient } from "@/supabase/server";
 import { supabaseWorker } from '@/supabase/requests';
 import AuthButton from "@/components/Header/AuthButton";
-import { ThemeSwitcherLoading } from "./ThemeSwticher";
 import { IUser } from "@/supabase/types";
 import dynamic from "next/dynamic";
 import { Button } from '@nextui-org/react';
 
-const ThemeSwitcher = dynamic(() => import('./ThemeSwticher'), {
-    ssr: false,
-    loading: () => <ThemeSwitcherLoading />,
-});
+const ThemeSwitcher = dynamic(() => import('./ThemeSwticher'), { ssr: false });
 
 export default async function Header() {
     const supabase = supabaseWorker(createClient(cookies()));
