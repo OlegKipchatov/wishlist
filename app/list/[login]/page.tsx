@@ -30,8 +30,8 @@ export default async function List(props: Props) {
   const listItems = (await supabase.items.getListItemsById(selectUser.id)) ?? [];
 
   return (
-    <div className="space-y-8">
-      { selectUser && <div className="flex flex-col items-center w-96 w-full">
+    <div className="space-y-8 flex flex-col">
+      { selectUser && <div className="flex flex-col items-center ">
         <UserCard user={selectUser} />
       </div> }
       {isCurrentUser && <AddCard />}

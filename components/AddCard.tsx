@@ -7,12 +7,17 @@ import EditCard from "./EditCard";
 import { Card } from "@/supabase/types";
 import { supabaseWorker } from "@/supabase/requests";
 import { createClient } from "@/supabase/client";
+import { Button } from '@nextui-org/react';
 
 export default function AddCard() {
     const [showAddPopup, setShowAddPopup] = useState(false);
 
+    const onShowPopup = useCallback(() => {
+        setShowAddPopup(() => true);
+    }, []);
+
     const onClosePopup = useCallback(() => {
-        setShowAddPopup((show) => show = false);
+        setShowAddPopup(() => false);
     }, []);
 
     const onAddCard = useCallback(async (card: Card) => {
@@ -27,10 +32,14 @@ export default function AddCard() {
 
     return(
         <>
-            <div className="flex justify-center">
-                <button onClick={() => setShowAddPopup(true)} className='z-20 fixed sm:relative bottom-8 sm:bottom-0 sm:flex sm:justify-center sm:w-full focus:ring-4 focus:outline-none rounded-full sm:rounded-lg p-6 sm:px-5 sm:py-3 btn-primary btn-focus'>
-                    <PlusIcon width={24} height={24} />
-                </button>
+            <div className="z-20 fixed bottom-8 sm:relative sm:bottom-0 flex justify-center ml-auto left-0 right-0 sm:ml-0 h-24 sm:h-auto">
+                <Button
+                    onClick={onShowPopup}
+                    className="fixed h-unit-20 w-unit-20 rounded-full sm:relative sm:h-unit-12 sm:rounded-lg sm:w-full text-white"
+                    color='primary'
+                    variant='solid'
+                    startContent={<PlusIcon height={24} strokeWidth={3} className="stroke-[4px] sm:stroke-[3px]" />}
+                />
             </div>
 
             <Popup show={showAddPopup} onClose={onClosePopup} title="Add item">

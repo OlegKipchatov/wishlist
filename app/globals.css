@@ -4,7 +4,6 @@
 
 @layer base {
   :root, :root.light {
-    --th-primary: 274, 75%, 37%;
     --th-primary-0: 280, 100%, 80%;
     --th-primary-100: 278, 100%, 76%;
     --th-primary-200: 278, 80%, 67%;
@@ -15,6 +14,7 @@
     --th-primary-700: 275, 84%, 25%;
     --th-primary-800: 275, 89%, 21%;
     --th-primary-900: 275, 100%, 17%;
+    --th-primary: var(--th-primary-500);
 
     --th-red-0: 352, 76%, 50%;
     --th-red-100: 352, 76%, 49%;
@@ -74,7 +74,6 @@
   }
   
   :root.dark {
-    --th-primary: 274, 75%, 37%;
     --th-primary-0: 280, 100%, 80%;
     --th-primary-100: 278, 100%, 76%;
     --th-primary-200: 278, 80%, 67%;
@@ -85,6 +84,7 @@
     --th-primary-700: 275, 84%, 25%;
     --th-primary-800: 275, 89%, 21%;
     --th-primary-900: 275, 100%, 17%;
+    --th-primary: var(--th-primary-500);
 
     --th-gray-0: 0, 0%, 0%;
     --th-gray-100: 210, 11%, 15%;

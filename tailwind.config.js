@@ -74,6 +74,7 @@ module.exports = {
           '700': 'hsl(var(--th-primary-700))',
           '800': 'hsl(var(--th-primary-800))',
           '900': 'hsl(var(--th-primary-900))',
+          DEFAULT: 'hsl(var(--th-primary-500))',
         },
       },
       animation: {
