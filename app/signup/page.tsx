@@ -86,8 +86,8 @@ export default function SignUp() {
   };
 
   return (
-    <div className="space-y-4 flex flex-col items-center">
-      <div className="flex flex-col gap-2 items-center">
+    <div className="space-y-8 flex flex-col items-center">
+      <div className="flex flex-col gap-1 items-center">
           <h1 className="text-2xl">Welcom</h1>
           <p className="text-gray-500">Create your account to get started</p>
       </div>
@@ -151,9 +151,11 @@ export default function SignUp() {
 
             <Button color='success' type="submit">Sign Up</Button>
 
-            <Divider />
-            <div className="flex justify-center">
-              <span>Already have an account? <Link className='text-primary-100' color="primary" href="/signin" underline="hover">Log In</Link></span>
+            <div>
+              <Divider />
+              <div className="flex justify-center mt-4">
+                <span>Already have an account? <Link className='text-primary-100' color="primary" href="/signin" underline="hover">Sign In</Link></span>
+              </div>
             </div>
           </form>
         </CardBody>
