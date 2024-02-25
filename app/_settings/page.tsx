@@ -3,7 +3,6 @@ import { createClient } from '@/supabase/server';
 import { supabaseWorker } from "@/supabase/requests";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import Button from "@/components/Button";
 import { IUser, UserMetadata } from "@/supabase/types";
 
 export default async function Settings() {
@@ -11,7 +10,7 @@ export default async function Settings() {
     const isAuthenticated = await supabase.users.isAuthenticated();
 
     if(!isAuthenticated) {
-        return redirect("/login");
+        return redirect("/sigin");
     }
 
     const updateMetadata = async (form: FormData) => {

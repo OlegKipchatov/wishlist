@@ -3,64 +3,104 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --th-primary-0: #dc97ff;
-    --th-primary-100: #d283ff;
-    --th-primary-200: #bd68ee;
-    --th-primary-300: #ab51e3;
-    --th-primary-400: #8b2fc9;
-    --th-primary-500: #6818a5;
-    --th-primary-600: #5a108f;
-    --th-primary-700: #4a0a77;
-    --th-primary-800: #3c0663;
-    --th-primary-900: #310055;
+  :root, :root.light {
+    --th-primary-0: 280, 100%, 80%;
+    --th-primary-100: 278, 100%, 76%;
+    --th-primary-200: 278, 80%, 67%;
+    --th-primary-300: 277, 72%, 60%;
+    --th-primary-400: 276, 62%, 49%;
+    --th-primary-500: 274, 75%, 37%;
+    --th-primary-600: 275, 80%, 31%;
+    --th-primary-700: 275, 84%, 25%;
+    --th-primary-800: 275, 89%, 21%;
+    --th-primary-900: 275, 100%, 17%;
+    --th-primary: var(--th-primary-500);
 
-    --th-red-0: #e01e37;
-    --th-red-100: #da1e37;
-    --th-red-200: #c71f37;
-    --th-red-300: #bd1f36;
-    --th-red-400: #b21e35;
-    --th-red-500: #a71e34;
-    --th-red-600: #a11d33;
-    --th-red-700: #85182a;
-    --th-red-800: #6e1423;
-    --th-red-900: #641220;
+    --th-red-0: 352, 76%, 50%;
+    --th-red-100: 352, 76%, 49%;
+    --th-red-200: 351, 73%, 45%;
+    --th-red-300: 351, 72%, 43%;
+    --th-red-400: 351, 71%, 41%;
+    --th-red-500: 350, 70%, 39%;
+    --th-red-600: 350, 69%, 37%;
+    --th-red-700: 350, 69%, 31%;
+    --th-red-800: 350, 69%, 25%;
+    --th-red-900: 350, 69%, 23%;
 
-    --th-green-0: #b7efc5;
-    --th-green-100: #92e6a7;
-    --th-green-200: #6ede8a;
-    --th-green-300: #4ad66d;
-    --th-green-400: #2dc653;
-    --th-green-500: #25a244;
-    --th-green-600: #208b3a;
-    --th-green-700: #1a7431;
-    --th-green-800: #155d27;
-    --th-green-900: #10451d;
+    --th-yellow-0: 352, 76%, 50%;
+    --th-yellow-100: 352, 76%, 49%;
+    --th-yellow-200: 351, 73%, 45%;
+    --th-yellow-300: 351, 72%, 43%;
+    --th-yellow-400: 351, 71%, 41%;
+    --th-yellow-500: 350, 70%, 39%;
+    --th-yellow-600: 350, 69%, 37%;
+    --th-yellow-700: 350, 69%, 31%;
+    --th-yellow-800: 350, 69%, 25%;
+    --th-yellow-900: 350, 69%, 23%;
 
-    --th-gray-0: #f8f9fa;
-    --th-gray-100: #e9ecef;
-    --th-gray-200: #dee2e6;
-    --th-gray-300: #ced4da;
-    --th-gray-400: #adb5bd;
-    --th-gray-500: #6c757d;
-    --th-gray-600: #495057;
-    --th-gray-700: #343a40;
-    --th-gray-800: #212529;
-    --th-gray-900: #000;
+    --th-green-0: 135, 64%, 83%;
+    --th-green-100: 135, 63%, 74%;
+    --th-green-200: 135, 63%, 65%;
+    --th-green-300: 135, 63%, 56%;
+    --th-green-400: 135, 63%, 48%;
+    --th-green-500: 135, 63%, 39%;
+    --th-green-600: 135, 63%, 34%;
+    --th-green-700: 135, 63%, 28%;
+    --th-green-800: 135, 63%, 22%;
+    --th-green-900: 135, 62%, 17%;
+
+    --th-default-foreground: 0 0 0;
+    --th-default-0: 210, 17%, 98%;
+    --th-default-100: 210, 16%, 93%;
+    --th-default-200: 210, 14%, 89%;
+    --th-default-300: 210, 14%, 83%;
+    --th-default-400: 210, 11%, 71%;
+    --th-default-500: 208, 7%, 46%;
+    --th-default-600: 210, 9%, 31%;
+    --th-default-700: 210, 10%, 23%;
+    --th-default-800: 210, 11%, 15%;
+    --th-default-900: 0, 0%, 0%;
+
+    --th-gray-0: 210, 17%, 98%;
+    --th-gray-100: 210, 16%, 93%;
+    --th-gray-200: 210, 14%, 89%;
+    --th-gray-300: 210, 14%, 83%;
+    --th-gray-400: 210, 11%, 71%;
+    --th-gray-500: 208, 7%, 46%;
+    --th-gray-600: 210, 9%, 31%;
+    --th-gray-700: 210, 10%, 23%;
+    --th-gray-800: 210, 11%, 15%;
+    --th-gray-900: 0, 0%, 0%;
   }
   
   :root.dark {
-    --th-gray-0: #000;
-    --th-gray-100: #212529;
-    --th-gray-200: #343a40;
-    --th-gray-300: #495057;
-    --th-gray-400: #6c757d;
-    --th-gray-500: #adb5bd;
-    --th-gray-600: #ced4da;
-    --th-gray-700: #dee2e6;
-    --th-gray-800: #e9ecef;
-    --th-gray-900: #f8f9fa;
+    --th-primary-0: 280, 100%, 80%;
+    --th-primary-100: 278, 100%, 76%;
+    --th-primary-200: 278, 80%, 67%;
+    --th-primary-300: 277, 72%, 60%;
+    --th-primary-400: 276, 62%, 49%;
+    --th-primary-500: 274, 75%, 37%;
+    --th-primary-600: 275, 80%, 31%;
+    --th-primary-700: 275, 84%, 25%;
+    --th-primary-800: 275, 89%, 21%;
+    --th-primary-900: 275, 100%, 17%;
+    --th-primary: var(--th-primary-500);
+
+    --th-gray-0: 0, 0%, 0%;
+    --th-gray-100: 210, 11%, 15%;
+    --th-gray-200: 210, 10%, 23%;
+    --th-gray-300: 210, 9%, 31%;
+    --th-gray-400: 208, 7%, 46%;
+    --th-gray-500: 210, 11%, 71%;
+    --th-gray-600: 210, 14%, 83%;
+    --th-gray-700: 210, 14%, 89%;
+    --th-gray-800: 210, 16%, 93%;
+    --th-gray-900: 210, 17%, 98%;
   }
+}
+
+input {
+  background: transparent;
 }
 
 @layer base {

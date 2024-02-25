@@ -8,6 +8,14 @@ type GetUserMetadataProps = {
 
 export const supabaseWorker = (client: SupabaseClient) => {
     const users = {
+        isEmailExist: async function(email: string) {
+            const { data } = await client.from('profiles').select('email').eq('email', email);  
+            return data?.length === 0;
+        },
+        isLoginExist: async function(login: string) {
+            const { data } = await client.from('profiles').select('login').eq('login', login);  
+            return data?.length === 0;
+        },
         getSessionUser: async function () {
             const { data: { session } } = await client.auth.getSession();
             if(!session?.user) {

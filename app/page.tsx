@@ -11,8 +11,6 @@ export default async function Index() {
     const user = await supabase.users.getSessionUser();
     redirect(`/list/${user?.login}`);
   } else {
-    redirect('/login');
+    redirect('/signin');
   }
-
-  return (<></>);
 }

@@ -1,49 +1,62 @@
-'use client'
-
-import CardImage from "./CardImage";
-import CardDate from "./CardDate";
-import CardFooter from "./CardFooter";
-import CardCost from "./CardCost";
+import { useEffect, useState } from "react";
+import { Card, CardBody, CardFooter, Image, Link, Button, Divider } from '@nextui-org/react';
+import { createClient } from "@/supabase/client";
+import { supabaseWorker } from "@/supabase/requests";
 import { ICard } from "@/supabase/types";
-import { createContext } from "react";
+import CardSettings from "./CardSettings";
 
 interface Props {
-    item: ICard,
+    card: ICard,
     currentUserId: string,
     isCurrentUser: boolean,
+    isAuthenticated: boolean,
 }
 
-const cardStyles = 'bg-gray-0 dark:bg-gray-100 hover:bg-gray-100 dark:hover:bg-gray-200 active:bg-gray-200 dark:active:bg-gray-300 border-gray-100 dark:border-gray-200';
+const numberFormat = Intl.NumberFormat('ru', {style: 'currency', currency: 'RUB', maximumFractionDigits: 0});
+const dateFormat = Intl.DateTimeFormat('en', {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+});
 
-type CardContextType = ICard & {
-    currentUserId: string
-};
-export const CardContext = createContext<CardContextType>(undefined as any);
+export default (props: Props) => {
+    const { card, currentUserId, isCurrentUser, isAuthenticated } = props;
+    const [imageUrl, setImageUrl] = useState('');
+    
+    useEffect(() => {
+        (async () => {
+            const supabase = supabaseWorker(createClient());
+            if(card.image) {
+                const publicImageUrl = await supabase.storage.getPublicCardImageUrl(card.image, currentUserId);
+                setImageUrl(publicImageUrl)
+            }
+        })();
+    }, [])
 
-export default function Card(props: Props) {
-    const { item, currentUserId, isCurrentUser } = props;
-
-    return(
-        <CardContext.Provider value={{...item, currentUserId}}>
-            <div className='flex flex-col justify-between w-full rounded-lg shadow-xl h-auto dark:bg-gray-100 border border-gray-100'>
-                <a href={item.link ?? '#'} target="blank" className={"flex flex-col sm:flex-row btn-focus rounded-lg border-b " + cardStyles}>
-                    <CardImage />
-
-                    <div className="flex flex-col justify-between p-4 space-y-4 w-full">
-                        <div className="flex flex-col space-y-2">
-                            <span className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                {item.title}
-                            </span>
-
-                            <CardCost />
-                        </div>
-
-                        <CardDate />
+    return (
+        <Card className="w-full max-w-96 sm:max-w-full">
+            <CardBody className="flex flex-col gap-4 sm:flex-row">
+                <div className="flex items-center justify-center">
+                    <Image shadow='sm' src={imageUrl} isBlurred height={256} width={256} className="max-h-96 sm:max-h-64" />
+                </div>
+                <div className="flex flex-col gap-4 justify-between w-full place-self-stretch p-2">
+                    <div className="space-y-2">
+                        <h2 className="font-bold text-2xl text-foreground">{card.title}</h2>
+                        <p className="font-bold text-xl text-foreground">{numberFormat.format(card.cost)}</p>
                     </div>
-                </a>
-
-                <CardFooter isCurrentUser={isCurrentUser} />
-            </div>
-        </CardContext.Provider>
+                    <div className="flex flex-col gap-2">
+                        <div className="flex justify-end items-center gap-2">
+                            { card.link && <Button as={Link} href={card.link} target="_blank" color='default'>View</Button> }
+                            { (isAuthenticated && !isCurrentUser) && <Button color='primary' variant='shadow'>Book</Button> }
+                        </div>
+                        <span className="text-right text-sm text-gray-400">{dateFormat.format(new Date(card.time))}</span>
+                    </div>
+                </div>
+            </CardBody>
+            { isCurrentUser && <CardFooter className="flex flex-col gap-2">
+                <Divider />
+                <CardSettings card={card} />
+            </CardFooter> }
+        </Card>
     );
 }

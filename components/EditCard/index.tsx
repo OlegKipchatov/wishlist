@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+import { Button, Input } from "@nextui-org/react";
 import { Card, ICard } from "@/supabase/types";
 import EditCardImage from "./EditCardImage";
 
@@ -10,7 +11,7 @@ type Props = {
 
 export default function EditCard(props: Props) {
     const { item, type, onCard } = props;
-    const formButtonText = type === 'edit' ? 'Edit item' : 'Add item';
+    const formButtonText = type === 'edit' ? 'Edit Wish' : 'Add Wish';
 
     const [image, setImage] = useState<File>();
 
@@ -31,41 +32,43 @@ export default function EditCard(props: Props) {
     }, []);
 
     return(
-        <form action={onFormAction}>
+        <form action={onFormAction} className="flex flex-col md:justify-between md:flex-row gap-4">
             <EditCardImage imageName={item?.image} setImage={setImageCallback}/>
 
-            <div className="grid md:grid-cols-2 md:gap-6">
-                <div className="mb-5">
-                    <input required name='title'
-                        type="text"
-                        className='w-full p-2.5 rounded-lg border border-gray-100 dark:bg-gray-0 btn-focus'
-                        placeholder="Product name"
-                        defaultValue={item?.title}
+            <div className="flex flex-col gap-4 justify-between w-full">
+                <div className="flex flex-col gap-4">
+                    <Input
+                        name='link'
+                        type='text'
+                        label='Link to wish'
+                        labelPlacement='outside'
+                        placeholder="Paste link to the wish"
+                        defaultValue={item?.link}
                     />
+
+                    <div className="grid gap-4 md:grid-cols-2">
+                        <Input
+                            name='titke'
+                            type='text'
+                            label='Wish'
+                            labelPlacement='outside'
+                            placeholder="Enter name your wish"
+                            defaultValue={item?.title}
+                        />
+
+                        <Input
+                            name='cost'
+                            type='number'
+                            label='Price'
+                            labelPlacement='outside'
+                            placeholder="Price of a wish"
+                            defaultValue={item?.cost?.toString()}
+                        />
+                    </div>
                 </div>
 
-                <div className="mb-5">
-                    <input name='cost'
-                        type="number"
-                        className="w-full p-2.5 rounded-lg border border-gray-100 dark:bg-gray-0 btn-focus"
-                        placeholder="Product cost"
-                        defaultValue={item?.cost}
-                    />
-                </div>
+                <Button fullWidth color='success' type='submit' formAction={onFormAction} className="text-white">{formButtonText}</Button>
             </div>
-
-            <div className="mb-5">
-                <input name='link'
-                    type="text"
-                    className="w-full p-2.5 rounded-lg border border-gray-100 dark:bg-gray-0 btn-focus"
-                    placeholder="Product link"
-                    defaultValue={item?.link}
-                />
-            </div>
-            
-            <button type="submit"
-                className="w-full rounded-lg py-2.5 px-3 btn-green btn-focus"
-                formAction={onFormAction}>{formButtonText}</button>
         </form>
     );
 }
