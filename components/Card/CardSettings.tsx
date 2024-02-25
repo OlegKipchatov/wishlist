@@ -18,7 +18,7 @@ export default (props: Props) => {
     const [showRemove, setShowRemove] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
 
-    const onRremoveItem = async () => {
+    const onRemoveItem = async () => {
         const supabase = supabaseWorker(createClient());
         const isRemove = await supabase.items.removeItem(card);
         if(isRemove) {
@@ -50,7 +50,7 @@ export default (props: Props) => {
             </div>
 
             <Popup show={showRemove} onClose={onCloseRemovePopup} title={`Remove '${card.title}'?`}>
-                <button className="w-full py-2.5 px-3 btn-red btn-focus rounded-lg" onClick={onRremoveItem}>Remove item</button>
+                <Button isIconOnly color='danger' className="w-full" onClick={onRemoveItem} startContent={<TrashIcon height={20} />} />
             </Popup>
 
             <Popup show={showEdit} onClose={onCloseEditPopup} title='Edit item'>
