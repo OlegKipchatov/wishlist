@@ -33,7 +33,7 @@ export default (props: Props) => {
     }, [])
 
     return (
-        <Card className="w-96 sm:w-full">
+        <Card className="w-full max-w-96 sm:max-w-full">
             <CardBody className="flex flex-col gap-4 sm:flex-row">
                 <div className="flex items-center justify-center">
                     <Image shadow='sm' src={imageUrl} isBlurred height={256} width={256} className="max-h-96 sm:max-h-64" />
