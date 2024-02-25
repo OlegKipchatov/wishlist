@@ -1,31 +1,34 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import EditIcon from '@heroicons/react/24/outline/PencilSquareIcon';
 import TrashIcon from '@heroicons/react/24/outline/TrashIcon';
 import Popup from "@/components/Popup";
 import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
-import { Card } from "@/supabase/types";
+import { Card, ICard } from "@/supabase/types";
 import EditCard from "@/components/EditCard";
-import { CardContext } from "../Card";
+import { Button } from "@nextui-org/react";
 
-const iconStyles = "inline-block btn-neutral dark:btn-neutral-100 btn-focus rounded-lg text-sm p-2";
+type Props = {
+    card: ICard,
+}
 
-export default function CardFooterAuth() {
-    const cardContext = useContext(CardContext);
+export default (props: Props) => {
+    const { card } = props;
+
     const [showRemove, setShowRemove] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
 
     const onRremoveItem = async () => {
         const supabase = supabaseWorker(createClient());
-        const isRemove = await supabase.items.removeItem(cardContext);
+        const isRemove = await supabase.items.removeItem(card);
         if(isRemove) {
             onCloseRemovePopup();
         }
     }
 
-    const onEditCard = useCallback(async (card: Card) => {
+    const onEditCard = useCallback(async (newCard: Card) => {
         const supabase = supabaseWorker(createClient());
-        const isEdited = await supabase.items.updateItem(cardContext, card);
+        const isEdited = await supabase.items.updateItem(card, newCard);
         if(isEdited) {
             onCloseEditPopup();
         }
@@ -41,24 +44,17 @@ export default function CardFooterAuth() {
 
     return(
         <>
-            <div className="p-2 rounded-b-lg">
-                <div className="flex justify-end space-x-2">
-                    <button type="button" className={iconStyles} onClick={() => setShowEdit(true)}>
-                        <EditIcon width={20} height={20} />
-                    </button>
-
-                    <button type="button" className={iconStyles} onClick={() => setShowRemove(true)}>
-                        <TrashIcon width={20} height={20} />
-                    </button>
-                </div>
+            <div className="w-full flex flex-row justify-end gap-2">
+                <Button isIconOnly variant='light' onClick={() => setShowEdit(true)} startContent={<EditIcon height={20} />}/>
+                <Button isIconOnly variant='light' color='danger' onClick={() => setShowRemove(true)} startContent={<TrashIcon height={20} />}/>
             </div>
 
-            <Popup show={showRemove} onClose={onCloseRemovePopup} title={`Remove '${cardContext.title}'?`}>
+            <Popup show={showRemove} onClose={onCloseRemovePopup} title={`Remove '${card.title}'?`}>
                 <button className="w-full py-2.5 px-3 btn-red btn-focus rounded-lg" onClick={onRremoveItem}>Remove item</button>
             </Popup>
 
             <Popup show={showEdit} onClose={onCloseEditPopup} title='Edit item'>
-                <EditCard onCard={onEditCard} item={cardContext} type='edit' />
+                <EditCard onCard={onEditCard} item={card} type='edit' />
             </Popup>
         </>
     );

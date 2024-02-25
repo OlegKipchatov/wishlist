@@ -1,8 +1,9 @@
+import { useEffect, useState } from "react";
+import { Card, CardBody, CardFooter, Image, Link, Button, Divider } from '@nextui-org/react';
 import { createClient } from "@/supabase/client";
 import { supabaseWorker } from "@/supabase/requests";
 import { ICard } from "@/supabase/types";
-import { Card, CardBody, CardFooter, Image, Link, Button, Divider } from '@nextui-org/react';
-import { useEffect, useState } from "react";
+import CardSettings from "./CardSettings";
 
 interface Props {
     card: ICard,
@@ -52,8 +53,9 @@ export default (props: Props) => {
                     </div>
                 </div>
             </CardBody>
-            { isCurrentUser && <CardFooter>
+            { isCurrentUser && <CardFooter className="flex flex-col gap-2">
                 <Divider />
+                <CardSettings card={card} />
             </CardFooter> }
         </Card>
     );
