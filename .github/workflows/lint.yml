@@ -3,11 +3,11 @@ name: CI / Lint
 on: push
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Install modules
-      run: yarn
+      run: npm ci
     - name: Run ESLint
       run: npm run lint
