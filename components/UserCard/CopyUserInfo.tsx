@@ -7,7 +7,7 @@ type Props = {
     login: string,
 }
 
-export default function CopyUser(props: Props) {
+export default function CopyUserInfo(props: Props) {
   const { login } = props;
 
   const copyUserHref = () => {

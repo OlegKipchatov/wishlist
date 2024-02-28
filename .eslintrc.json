@@ -1,0 +1,76 @@
+{
+  "extends": ["next/core-web-vitals", "airbnb", "airbnb/hooks"],
+  "plugins": ["simple-import-sort", "import", "@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+      "max-len": ["error", { "code": 120 }],
+      "indent": ["error", 2],
+      "sort-imports": "off",
+      "react-hooks/exhaustive-deps": "off",
+      "react/react-in-jsx-scope": "off",
+      "react/jsx-filename-extension": [
+        2,
+        {
+          "extensions": [
+            ".tsx",
+            ".ts"
+          ]
+        }
+      ],
+      "react/jsx-first-prop-new-line": [1, "multiline"],
+      "react/jsx-max-props-per-line": [1,
+        {
+            "maximum": 1
+        }
+      ],
+      "import/extensions": [
+        "error",
+        "ignorePackages",
+        {
+          "js": "never",
+          "jsx": "never",
+          "ts": "never",
+          "tsx": "never"
+        }
+      ],
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
+      "import/first": "error",
+      "import/order": "off",
+      "import/newline-after-import": "error",
+      "import/no-duplicates": "error",
+      "import/prefer-default-export": "off",
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["error"]
+  },
+  "overrides": [
+    // override "simple-import-sort" config
+    {
+      "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
+      "rules": {
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              // Packages `react` related packages come first.
+              ["^react", "^next(/.*|$)"],
+              ["^@nextui-org/react", "^@heroicons(/.*|&)"],
+              // Internal packages.
+              ["^@/hooks(/.*|$)", "^@/store(/.*|$)", "^@/(supabase)(/.*|$)", "^@/utils(/.*|$)", "^@/components(/.*|$)"],
+              // Parent imports. Put `..` last.
+              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+              // Other relative imports. Put same-folder imports and `.` last.
+              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+              // Style imports.
+              ["^.+\\.?(css)$"]
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest"
+  }
+}
