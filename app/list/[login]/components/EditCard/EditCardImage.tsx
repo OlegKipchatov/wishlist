@@ -101,7 +101,3 @@ export default function EditCardImage(props: Props) {
     </div>
   );
 }
-
-EditCardImage.defaultProps = {
-  cardImageName: undefined,
-};

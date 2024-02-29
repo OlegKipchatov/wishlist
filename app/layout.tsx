@@ -31,7 +31,7 @@ export default async function RootLayout({
     >
       <body className="bg-gray-0 text-gray-800">
         <Header />
-        <main className="min-h-screen flex flex-col justify-between items-center pt-16">
+        <main className="min-h-screen flex flex-col justify-between items-center">
           <div className="w-full max-w-2xl p-6">
             {children}
           </div>

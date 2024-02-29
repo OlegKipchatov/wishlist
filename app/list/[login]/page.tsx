@@ -2,11 +2,13 @@ import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
+import { Providers } from '@/store/providers';
 import { supabaseWorker } from '@/supabase/requests';
 import { createClient } from '@/supabase/server';
-import AddCard from '@/components/AddCard';
-import ListItems from '@/components/ListItems';
 import UserCard from '@/components/UserCard';
+
+import AddCard from './components/AddCard';
+import ListItems from './components/ListItems';
 
 type Props = {
   params: {
@@ -37,13 +39,16 @@ export default async function List(props: Props) {
           <UserCard user={selectUser} />
         </div>
       ) }
-      {isCurrentUser && <AddCard />}
-      <ListItems
-        id={selectUser.id}
-        items={listItems}
-        isCurrentUser={isCurrentUser}
-        isAuthenticated={isAuthenticated}
-      />
+      { isCurrentUser && <AddCard /> }
+
+      <Providers>
+        <ListItems
+          id={selectUser.id}
+          items={listItems}
+          isCurrentUser={isCurrentUser}
+          isAuthenticated={isAuthenticated}
+        />
+      </Providers>
     </div>
   );
 }

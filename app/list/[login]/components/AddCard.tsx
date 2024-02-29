@@ -10,7 +10,6 @@ import { supabaseWorker } from '@/supabase/requests';
 import { Card } from '@/supabase/types';
 
 import EditCard from './EditCard';
-import Popup from './Popup';
 
 export default function AddCard() {
   const [showAddPopup, setShowAddPopup] = useState(false);
@@ -52,16 +51,13 @@ export default function AddCard() {
         />
       </div>
 
-      <Popup
-        show={showAddPopup}
-        onClose={onClosePopup}
+      <EditCard
         title="Add item"
-      >
-        <EditCard
-          type="add"
-          onCard={onAddCard}
-        />
-      </Popup>
+        type="add"
+        isShow={showAddPopup}
+        onClose={onClosePopup}
+        onCard={onAddCard}
+      />
     </>
   );
 }
