@@ -60,7 +60,7 @@ export default function RemoveCard(props: Props) {
             fullWidth
             color="danger"
             type="submit"
-            formAction={onRemove}
+            onClick={onRemove}
             className="text-white"
           >
             Remove Wish

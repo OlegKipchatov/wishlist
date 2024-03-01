@@ -32,14 +32,14 @@ export default function CardSettings(props: Props) {
     setShowRemove(() => false);
   }, []);
 
-  const onRemoveItem = async () => {
+  const onRemoveItem = useCallback(async () => {
     const supabase = supabaseWorker(createClient());
     const isRemove = await supabase.items.removeItem(card);
     if (isRemove) {
       dispatch(cardsSlice.actions.removeCard(card.id));
       onCloseRemovePopup();
     }
-  };
+  }, []);
 
   const onEditCard = useCallback(async (newCard: Card) => {
     const supabase = supabaseWorker(createClient());
