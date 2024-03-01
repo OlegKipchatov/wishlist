@@ -27,13 +27,17 @@ export default function WishItem(props: Props) {
 
   useEffect(() => {
     (async () => {
-      const supabase = supabaseWorker(createClient());
       if (card.image) {
+        const supabase = supabaseWorker(createClient());
         const publicImageUrl = await supabase.storage.getPublicCardImageUrl(card.image, userId);
         setImageUrl(publicImageUrl);
       }
     })();
-  }, []);
+
+    return () => {
+      setImageUrl('');
+    };
+  }, [card.image]);
 
   return (
     <div className="flex flex-col gap-4 sm:flex-row">
