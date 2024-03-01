@@ -50,9 +50,9 @@ export default function RemoveCard(props: Props) {
           <Button
             fullWidth
             color="default"
-            variant="bordered"
             type="button"
             onClick={onClose}
+            variant="ghost"
           >
             Cancel
           </Button>

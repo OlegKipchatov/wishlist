@@ -54,20 +54,18 @@ export default function EditCard(props: Props) {
       }}
     >
       <ModalContent>
-        <ModalHeader className="flex justify-between items-center">
-          {title}
-          <Button
-            isIconOnly
-            variant="light"
-            onClick={onClose}
-            startContent={<XMarkIcon height={20} />}
-          />
-        </ModalHeader>
-        <ModalBody>
-          <form
-            action={onFormAction}
-            className="flex flex-col md:justify-between md:flex-row gap-4"
-          >
+        <form action={onFormAction}>
+
+          <ModalHeader className="flex justify-between items-center">
+            {title}
+            <Button
+              isIconOnly
+              variant="light"
+              onClick={onClose}
+              startContent={<XMarkIcon height={20} />}
+            />
+          </ModalHeader>
+          <ModalBody className="flex flex-col md:justify-between md:flex-row gap-4">
             <EditCardImage
               cardImageName={card?.image}
               setImage={setImageCallback}
@@ -82,16 +80,18 @@ export default function EditCard(props: Props) {
                   labelPlacement="outside"
                   placeholder="Paste link to the wish"
                   defaultValue={card?.link}
+                  variant="bordered"
                 />
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <Input
-                    name="titke"
+                    name="title"
                     type="text"
                     label="Wish"
                     labelPlacement="outside"
                     placeholder="Enter name your wish"
                     defaultValue={card?.title}
+                    variant="bordered"
                   />
 
                   <Input
@@ -101,33 +101,33 @@ export default function EditCard(props: Props) {
                     labelPlacement="outside"
                     placeholder="Price of a wish"
                     defaultValue={card?.cost?.toString()}
+                    variant="bordered"
                   />
                 </div>
               </div>
-
             </div>
-          </form>
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            fullWidth
-            color="default"
-            variant="bordered"
-            type="button"
-            onClick={onClose}
-          >
-            Cancel
-          </Button>
-          <Button
-            fullWidth
-            color="success"
-            type="submit"
-            formAction={onFormAction}
-            className="text-white"
-          >
-            {title}
-          </Button>
-        </ModalFooter>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              fullWidth
+              color="default"
+              variant="ghost"
+              type="button"
+              onClick={onClose}
+            >
+              Cancel
+            </Button>
+            <Button
+              fullWidth
+              color="success"
+              type="submit"
+              formAction={onFormAction}
+              className="text-white"
+            >
+              {title}
+            </Button>
+          </ModalFooter>
+        </form>
       </ModalContent>
     </Modal>
   );

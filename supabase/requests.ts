@@ -144,12 +144,14 @@ export const supabaseWorker = (client: SupabaseClient) => {
           .eq('id', oldCard.id)
           .select<any, ICard>();
 
-        if (newCard.image) {
-          await storage.uploadCardImage(newCard.image);
-        }
+        if (oldCard.image !== newCard.image) {
+          if (oldCard.image) {
+            storage.removeCardImage(oldCard.image);
+          }
 
-        if (oldCard.image) {
-          storage.removeCardImage(oldCard.image);
+          if (newCard.image) {
+            await storage.uploadCardImage(newCard.image);
+          }
         }
 
         if (error) {
