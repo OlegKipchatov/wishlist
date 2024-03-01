@@ -4,8 +4,8 @@ import {
 
 import { ICard } from '@/supabase/types';
 
-import CardSettings from '../CardSettings';
-
+import CardSettings from './CardSettings';
+import EmptyCard from './EmptyCard';
 import WishItem from './WishItem';
 
 interface Props {
@@ -54,3 +54,8 @@ export default function CardWish(props: Props) {
     </Card>
   );
 }
+
+export {
+  EmptyCard,
+  WishItem,
+};

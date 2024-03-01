@@ -4,13 +4,13 @@ import { Button } from '@nextui-org/react';
 import EditIcon from '@heroicons/react/24/outline/PencilSquareIcon';
 import TrashIcon from '@heroicons/react/24/outline/TrashIcon';
 
+import { cardsSlice, useDispatch } from '@/store/redux';
 import { createClient } from '@/supabase/client';
 import { supabaseWorker } from '@/supabase/requests';
 import { Card, ICard } from '@/supabase/types';
 
-import RemoveCard from './RemoveCard';
-
-import EditCard from '@/app/list/[login]/components/EditCard';
+import EditCard from '../EditCard';
+import RemoveCard from '../RemoveCard';
 
 type Props = {
     card: ICard,
@@ -22,6 +22,7 @@ export default function CardSettings(props: Props) {
 
   const [showRemove, setShowRemove] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const dispatch = useDispatch();
 
   const onCloseEditPopup = useCallback(() => {
     setShowEdit(() => false);
@@ -35,14 +36,16 @@ export default function CardSettings(props: Props) {
     const supabase = supabaseWorker(createClient());
     const isRemove = await supabase.items.removeItem(card);
     if (isRemove) {
+      dispatch(cardsSlice.actions.removeCard(card.id));
       onCloseRemovePopup();
     }
   };
 
   const onEditCard = useCallback(async (newCard: Card) => {
     const supabase = supabaseWorker(createClient());
-    const isEdited = await supabase.items.updateItem(card, newCard);
-    if (isEdited) {
+    const editCard = await supabase.items.updateItem(card, newCard);
+    if (editCard) {
+      dispatch(cardsSlice.actions.updateCard(editCard));
       onCloseEditPopup();
     }
   }, []);

@@ -7,23 +7,23 @@ import { useLayoutEffect, useState } from 'react';
 import { cardsSlice, useDispatch, useSelector } from '@/store/redux';
 import { ICard } from '@/supabase/types';
 
-import Card from '@/app/list/[login]/components/Card/Card';
-import EmptyCard from '@/app/list/[login]/components/EmptyCard';
+import Card, { EmptyCard } from '../Card';
 
 type Props = {
     id: string,
     items: ICard[] | undefined,
     isCurrentUser: boolean,
-    isAuthenticated: boolean,
 }
 
-export default function ListItems(props: Props) {
+export default function ListWish(props: Props) {
   const {
-    id, items, isCurrentUser, isAuthenticated,
+    id, items, isCurrentUser,
   } = props;
   const [isLoadItem, setIsLoadItem] = useState(true);
   const dispatch = useDispatch();
+
   const cards = useSelector((store) => store.userCards.cards);
+  const isAuthenticated = useSelector((state) => state.sesssionUser.isAuthenticated);
 
   useLayoutEffect(() => {
     items?.forEach((item) => {
@@ -44,12 +44,14 @@ export default function ListItems(props: Props) {
             <EmptyCard />
             <EmptyCard />
             <EmptyCard />
+            <EmptyCard />
+            <EmptyCard />
           </>
         )
-        : cards?.map((item) => (
+        : cards?.map((card) => (
           <Card
-            key={item.id}
-            card={item}
+            key={card.id}
+            card={card}
             currentUserId={id}
             isCurrentUser={isCurrentUser}
             isAuthenticated={isAuthenticated}

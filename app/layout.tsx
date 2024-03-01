@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 
 import { getTheme } from '@/utils/themes/server';
 import Header from '@/components/Header';
+import SessionUserStore from '@/components/SessionUserStore';
 
 import './globals.css';
 
@@ -30,6 +31,7 @@ export default async function RootLayout({
       className={`${GeistSans.className} ${themeMode}`}
     >
       <body className="bg-gray-0 text-gray-800">
+        <SessionUserStore />
         <Header />
         <main className="min-h-screen flex flex-col justify-between items-center">
           <div className="w-full max-w-2xl p-6">

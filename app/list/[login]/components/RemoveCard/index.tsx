@@ -5,7 +5,7 @@ import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
 
 import { ICard } from '@/supabase/types';
 
-import WishItem from './Card/WishItem';
+import WishItem from '../Card/WishItem';
 
 type Props = {
   isShow: boolean,

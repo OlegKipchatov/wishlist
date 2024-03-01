@@ -20,10 +20,10 @@ type Props = {
 
 export default function EditCard(props: Props) {
   const {
-    title, isShow, onClose, card, onCard, type,
+    isShow, onClose, card, onCard, type,
   } = props;
 
-  const formButtonText = type === 'edit' ? 'Edit Wish' : 'Add Wish';
+  const title = type === 'edit' ? 'Edit Wish' : 'Add Wish';
 
   const [image, setImage] = useState<File>();
 
@@ -125,7 +125,7 @@ export default function EditCard(props: Props) {
             formAction={onFormAction}
             className="text-white"
           >
-            {formButtonText}
+            {title}
           </Button>
         </ModalFooter>
       </ModalContent>
