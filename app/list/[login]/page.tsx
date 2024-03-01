@@ -4,9 +4,9 @@ import { redirect } from 'next/navigation';
 
 import { supabaseWorker } from '@/supabase/requests';
 import { createClient } from '@/supabase/server';
-import AddCard from '@/components/AddCard';
-import ListItems from '@/components/ListItems';
 import UserCard from '@/components/UserCard';
+
+import ListItems from './components/ListItems';
 
 type Props = {
   params: {
@@ -24,25 +24,17 @@ export default async function List(props: Props) {
     return redirect('/');
   }
 
-  const isAuthenticated = await supabase.users.isAuthenticated();
-  const sessionUser = await supabase.users.getSessionUser();
-  const isCurrentUser = selectUser.id === sessionUser?.id;
-
   const listItems = (await supabase.items.getListItemsById(selectUser.id)) ?? [];
 
   return (
     <div className="space-y-8 flex flex-col">
-      { selectUser && (
-        <div className="flex flex-col items-center ">
-          <UserCard user={selectUser} />
-        </div>
-      ) }
-      {isCurrentUser && <AddCard />}
+      <div className="flex flex-col items-center ">
+        <UserCard user={selectUser} />
+      </div>
+
       <ListItems
-        id={selectUser.id}
         items={listItems}
-        isCurrentUser={isCurrentUser}
-        isAuthenticated={isAuthenticated}
+        currentUser={selectUser}
       />
     </div>
   );

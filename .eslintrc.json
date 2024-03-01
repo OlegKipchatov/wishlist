@@ -6,6 +6,7 @@
       "max-len": ["error", { "code": 120 }],
       "indent": ["error", 2],
       "sort-imports": "off",
+      "react/require-default-props": "off",
       "react-hooks/exhaustive-deps": "off",
       "react/react-in-jsx-scope": "off",
       "react/jsx-filename-extension": [
@@ -55,6 +56,7 @@
               // Packages `react` related packages come first.
               ["^react", "^next(/.*|$)"],
               ["^@nextui-org/react", "^@heroicons(/.*|&)"],
+              ["^@?redux(js)?(.*|$)"],
               // Internal packages.
               ["^@/hooks(/.*|$)", "^@/store(/.*|$)", "^@/(supabase)(/.*|$)", "^@/utils(/.*|$)", "^@/components(/.*|$)"],
               // Parent imports. Put `..` last.

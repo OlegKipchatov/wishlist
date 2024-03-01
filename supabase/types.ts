@@ -7,7 +7,7 @@ export interface IUser {
 }
 
 export type UserMetadata = Omit<IUser, 'id' | 'email'>;
-  
+
 export interface ICard {
     id: string,
     time: string,

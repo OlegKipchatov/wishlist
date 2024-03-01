@@ -82,6 +82,7 @@ export default function EditCardImage(props: Props) {
       { imageUrl && (
         <Image
           isBlurred
+          shadow="sm"
           src={imageUrl}
           width={256}
           height={256}
@@ -101,7 +102,3 @@ export default function EditCardImage(props: Props) {
     </div>
   );
 }
-
-EditCardImage.defaultProps = {
-  cardImageName: undefined,
-};
