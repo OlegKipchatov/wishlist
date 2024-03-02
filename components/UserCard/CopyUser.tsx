@@ -19,7 +19,7 @@ export default function CopyUser(props: Props) {
     <Tooltip content={`Copy link to ${login}'s wishes to clipboard`}>
       <CopyIcon
         height={18}
-        className="hover:cursor-pointer hover:text-primary-200"
+        className="cursor-pointer hover:text-primary"
         onClick={copyUserHref}
       />
     </Tooltip>

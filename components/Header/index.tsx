@@ -20,12 +20,13 @@ export default async function Header() {
 
   return (
     <Navbar>
-      <NavbarBrand
-        as={Link}
-        href="/"
-        className="text-xl font-semibold"
-      >
-        WishList
+      <NavbarBrand>
+        <Link
+          className="text-xl font-semibold text-foreground"
+          href="/"
+        >
+          WishList
+        </Link>
       </NavbarBrand>
       <NavbarContent justify="end">
         <ThemeSwitcher />

@@ -5,7 +5,7 @@ import {
 import { IUser } from '@/supabase/types';
 import { getDisplayName } from '@/utils/users';
 
-import CopyUser from './CopyUserInfo';
+import CopyUser from './CopyUser';
 
 type Props = {
     user: IUser,
@@ -22,7 +22,7 @@ export default function UserCard(props: Props) {
         <Avatar
           icon={<AvatarIcon />}
           classNames={{
-            base: 'w-24 h-24 absolute -bottom-12 m-auto left-0 right-0',
+            base: 'w-24 h-24 absolute -bottom-12 m-auto left-0 right-0 bg-zinc-300 dark:bg-zinc-500',
             icon: 'text-black/80',
           }}
         />

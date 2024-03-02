@@ -34,12 +34,12 @@ export default function AddCard() {
   return (
     <>
       {/* eslint-disable max-len */}
-      <div className="z-20 fixed bottom-8 sm:relative sm:bottom-0 flex justify-center ml-auto left-0 right-0 sm:ml-0 h-24 sm:h-auto">
+      <div className="z-20 fixed bottom-0 sm:relative flex justify-center ml-auto left-0 right-0 sm:ml-0 h-24 sm:h-auto">
         <Button
           onClick={onTogglePopup}
           className="fixed h-unit-20 w-unit-20 rounded-full sm:relative sm:h-unit-12 sm:rounded-lg sm:w-full text-white"
           color="primary"
-          variant="solid"
+          variant="shadow"
           startContent={(
             <PlusIcon
               height={24}
