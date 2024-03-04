@@ -1,5 +1,8 @@
 import React from 'react';
 import { cookies } from 'next/headers';
+import Link from 'next/link';
+
+import { Divider } from '@nextui-org/react';
 
 import { getTheme } from '@/utils/themes/server';
 import Header from '@/components/Header';
@@ -30,25 +33,26 @@ export default async function RootLayout({
       lang="en"
       className={`${GeistSans.className} ${themeMode}`}
     >
-      <body className="bg-gray-0 text-gray-800">
+      <body className="bg-background text-foreground">
         <SessionUserStore />
         <Header />
-        <main className="min-h-screen flex flex-col justify-between items-center">
+        <main className="min-h-full flex flex-col items-center">
           <div className="w-full max-w-2xl p-6">
             {children}
           </div>
-          <footer className="w-full border-t border-t-gray-200 p-8 flex justify-center text-center text-xs">
-            <p>
+          <footer className="w-full p-8 flex flex-col gap-4 justify-center text-center text-xs">
+            <Divider className="w-full" />
+            <p className="text-default-500">
               Powered by
               {' '}
-              <a
+              <Link
                 href="https://vk.com/jarponok"
                 target="_blank"
-                className="font-bold hover:underline"
+                className="font-bold hover:underline text-foreground"
                 rel="noreferrer"
               >
                 trueHack
-              </a>
+              </Link>
             </p>
           </footer>
         </main>

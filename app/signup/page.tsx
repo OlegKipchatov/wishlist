@@ -36,11 +36,11 @@ export default function SignUp() {
     const userLogin = formData.get('login') as string;
     const password = formData.get('password') as string;
 
-    const isValidLogin = loginStatus === 'success';
-    const isValidEmail = emailStatus === 'success';
+    const isValidLogin = loginStatus.current === 'success';
+    const isValidEmail = emailStatus.current === 'success';
     const isValidPassword = passwordStatus === 'success' && confirmPasswordStatus === 'success';
     if (!isValidLogin || !isValidEmail || !isValidPassword) {
-      setAuthError('Invalid imput data');
+      setAuthError('Invalid input data');
       return;
     }
 
@@ -92,11 +92,13 @@ export default function SignUp() {
     setConfirmPassword(confirmPassword);
   };
 
+  console.log('emailStatus', emailStatus);
+
   return (
     <div className="space-y-8 flex flex-col items-center">
       <div className="flex flex-col gap-1 items-center">
-        <h1 className="text-2xl">Welcom</h1>
-        <p className="text-gray-500">Create your account to get started</p>
+        <h1 className="text-foreground text-2xl">Welcome</h1>
+        <p className="text-default-500">Create your account to get started</p>
       </div>
       <Card className="w-full max-w-sm">
         <CardBody>
@@ -113,9 +115,13 @@ export default function SignUp() {
               placeholder="Enter your username"
               startContent={<UserIcon height={20} />}
               value={login}
-              isInvalid={loginStatus === 'error-format' || loginStatus === 'error-exist'}
+              isInvalid={loginStatus.current === 'error-format' || loginStatus.current === 'error-exist'}
               errorMessage={loginErrorMessage}
               onChange={onChangeLogin}
+              description={
+                loginStatus.current === 'success'
+                  && <span className="text-success">Success username</span>
+              }
             />
 
             <Input
@@ -127,8 +133,12 @@ export default function SignUp() {
               placeholder="Enter your email"
               startContent={<MailIcon height={20} />}
               onChange={onChangeEmail}
-              isInvalid={emailStatus === 'error-exist' || emailStatus === 'error-format'}
+              isInvalid={emailStatus.current === 'error-exist' || emailStatus.current === 'error-format'}
               errorMessage={emailErrorMessage}
+              description={
+                emailStatus.current === 'success'
+                  && <span className="text-success">Success user email</span>
+              }
             />
 
             <Input
@@ -140,7 +150,6 @@ export default function SignUp() {
               placeholder="Enter your password"
               startContent={<KeyIcon height={20} />}
               onChange={onChangePassword}
-              isInvalid={passwordStatus === 'error-format'}
               errorMessage={passwordErrorMessage}
             />
             <Input
@@ -154,6 +163,10 @@ export default function SignUp() {
               onChange={onChangeConfirmPassword}
               isInvalid={confirmPasswordStatus === 'error'}
               errorMessage={confirmPasswordErrorMessage}
+              description={
+                confirmPasswordStatus === 'success'
+                  && <span className="text-success">Success confirm password</span>
+              }
             />
 
             <Button
@@ -164,12 +177,16 @@ export default function SignUp() {
             </Button>
 
             <div>
-              <Divider />
+              <div className="flex gap-4 items-center">
+                <Divider className="flex-1" />
+                <span className="text-default-500 text-tiny">OR</span>
+                <Divider className="flex-1" />
+              </div>
               <div className="flex justify-center mt-4">
                 <span>
                   Already have an account?
+                  {' '}
                   <Link
-                    className="text-primary-100"
                     color="primary"
                     href="/signin"
                     underline="hover"

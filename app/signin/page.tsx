@@ -30,8 +30,8 @@ export default function SignUp() {
     const password = formData.get('password') as string;
     const login = email.split('@')[0];
 
-    const isValidLogin = loginStatus === 'error-exist';
-    const isValidEmail = emailStatus === 'error-exist';
+    const isValidLogin = loginStatus.current === 'error-exist';
+    const isValidEmail = emailStatus.current === 'error-exist';
     const isValidPassword = passwordStatus === 'success';
     if (!(isValidEmail || isValidLogin) && !isValidPassword) {
       setAuthError('Invalid input data');
@@ -76,8 +76,8 @@ export default function SignUp() {
   return (
     <div className="space-y-8 flex flex-col items-center">
       <div className="flex flex-col gap-1 items-center">
-        <h1 className="text-2xl">Welcom</h1>
-        <p className="text-gray-500">Log in to your account to continue</p>
+        <h1 className="text-foreground text-2xl">Welcom</h1>
+        <p className="text-default-500">Log in to your account to continue</p>
       </div>
       <Card className="w-full max-w-sm">
         <CardBody>
@@ -94,19 +94,14 @@ export default function SignUp() {
               placeholder="Enter your email or login"
               startContent={<UserIcon height={20} />}
               onChange={onChangeEmail}
-              isInvalid={loginStatus === 'error-format' || emailStatus === 'error-format'}
-              errorMessage={loginStatus === ('error-format' && loginErrorMessage)
-                || (emailStatus === 'error-format' && emailErrorMessage) || ''}
-              description={(
-                <>
-                  { loginStatus === 'error-exist' || emailStatus === 'error-exist'
-                    ? <span className="text-green-500">This user exist</span>
-                    : '' }
-                  { loginStatus === 'success' || emailStatus === 'success'
-                    ? <span className="text-red-100">This user does not exist</span>
-                    : '' }
-                </>
-              )}
+              isInvalid={loginStatus.current === 'error-format' || emailStatus.current === 'error-format'}
+              errorMessage={loginStatus.current === ('error-format' && loginErrorMessage)
+                || (emailStatus.current === 'error-format' && emailErrorMessage) || ''}
+              description={
+                loginStatus.current === 'error-exist' || emailStatus.current === 'error-exist'
+                  ? <span className="text-danger">This user exist</span>
+                  : ''
+              }
             />
 
             <Input
@@ -131,14 +126,18 @@ export default function SignUp() {
             </Button>
 
             <div>
-              <Divider />
+              <div className="flex gap-4 items-center">
+                <Divider className="flex-1" />
+                <span className="text-default-500 text-tiny">OR</span>
+                <Divider className="flex-1" />
+              </div>
               <div className="flex justify-center mt-4">
                 <span>
                   Need to create an account?
+                  {' '}
                   <Link
-                    className="text-primary-100"
                     color="primary"
-                    href="/signin"
+                    href="/signup"
                     underline="hover"
                   >
                     Sign Up
